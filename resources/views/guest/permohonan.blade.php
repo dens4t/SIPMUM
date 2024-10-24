@@ -273,6 +273,7 @@
     <div class="row mt-3 justify-content-center">
         <div class="col-lg-8">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d672.670130627021!2d109.37960134158429!3d-0.07441236783818983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d50aa2269cebb%3A0xd681ea6bb47ac165!2sPT%20PLN%20(Perseri)%20Unit%20Pelaksana%20Pengendalian%20Pembangkitan%20Kapuas!5e1!3m2!1sid!2sid!4v1729326241388!5m2!1sid!2sid" width="100%" height="500px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d672.670130627021!2d109.37960134158429!3d-0.07441236783818983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e1d50aa2269cebb%3A0xd681ea6bb47ac165!2sPT%20PLN%20(Perseri)%20Unit%20Pelaksana%20Pengendalian%20Pembangkitan%20Kapuas!5e1!3m2!1sid!2sid!4v1729326241388!5m2!1sid!2sid" width="100%" height="500px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
         </div>
     </div>
 </section>

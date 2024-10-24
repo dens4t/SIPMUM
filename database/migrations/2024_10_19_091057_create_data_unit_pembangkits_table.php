@@ -20,6 +20,11 @@ return new class extends Migration
             $table->integer('daya_terpasang');
             $table->integer('daya_mampu');
             $table->string('lokasi_unit');
+
+
+            $table->bigInteger('id_unit')->unsigned()->nullable();
+            $table->foreign('id_unit')->references('id')->on('unit')->cascadeOnUpdate()->nullOnDelete();
+
             $table->timestamps();
         });
     }

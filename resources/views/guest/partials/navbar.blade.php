@@ -24,6 +24,8 @@
                         Unit Pembangkit
                     </a>
                     <ul class="dropdown-menu " style="border: 0 !important; border-radius: 0; font-family:Arial, Helvetica, sans-serif;">
+                        <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">Kantor UP Kapuas </a></li>
+                        <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">ULPLTD/G Siantan</a></li>
                         <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">UPLTD SEI RAYA</a></li>
                         <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">UPLTD SANGGAU</a></li>
                         <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">UPTLD KETAPANG</a></li>

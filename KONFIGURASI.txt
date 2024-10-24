@@ -1,0 +1,3 @@
+DB NAME : pbuikfsi_sipmum
+DB USER : pbuikfsi_user
+DB PASS : b4pp3d4_d4l

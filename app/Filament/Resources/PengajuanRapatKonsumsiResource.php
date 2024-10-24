@@ -7,9 +7,12 @@ use App\Filament\Resources\PengajuanRapatKonsumsiResource\RelationManagers;
 use App\Models\Pegawai;
 use App\Models\PengajuanRapatKonsumsi;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -26,24 +29,24 @@ class PengajuanRapatKonsumsiResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('id_pegawai')->label('Pegawai (Pemohon)')->options(Pegawai::all()->pluck('nama', 'id'))->searchable()->required(),
+                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->pegawai->id) : Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required()),
                 Forms\Components\Textarea::make('judul_rapat')->label('Judul Rapat')->required(),
                 Forms\Components\TextInput::make('jumlah_peserta_rapat')->integer()->label('Jumlah Peserta Rapat')->required(),
                 Forms\Components\DateTimePicker::make('tanggal_waktu_mulai')->label('Tanggal dan Waktu Mulai')->required(),
                 Forms\Components\DateTimePicker::make('tanggal_waktu_selesai')->label('Tanggal dan Waktu Selesai')->required(),
                 Forms\Components\Select::make('metode')->label('Metode')->options([
-                    'offline'=>'Offline',
-                    'online'=>'Online',
+                    'offline' => 'Offline',
+                    'online' => 'Online',
                 ])->required(),
                 Forms\Components\Select::make('ruang')->label('Ruang')->options([
-                    'upks'=>'Ruang Rapat UPKS',
-                    'baca'=>'Ruang Baca',
+                    'upks' => 'Ruang Rapat UPKS',
+                    'baca' => 'Ruang Baca',
                 ])->required(),
 
                 Forms\Components\Select::make('jenis_konsumsi')->label('Jenis Konsumsi')->options([
-                    'snack_minum'=>'Snack dan Minum',
-                    'snack_minum_makan'=>'Snack, Minum, dan Makan',
-                    'makan_minum'=>'Makan dan Minum',
+                    'snack_minum' => 'Snack dan Minum',
+                    'snack_minum_makan' => 'Snack, Minum, dan Makan',
+                    'makan_minum' => 'Makan dan Minum',
                 ])->required(),
                 Forms\Components\TextInput::make('surat_undangan_rapat')->label('Link Surat Undangan Rapat')->required(),
             ]);
@@ -61,7 +64,34 @@ class PengajuanRapatKonsumsiResource extends Resource
                 Tables\Columns\TextColumn::make('metode')->label('Metode Rapat')->sortable(),
             ])
             ->filters([
-                //
+                Filter::make('tanggal_waktu_mulai')
+                    ->form([
+                        DatePicker::make('created_from')->label('Tanggal Mulai Rapat'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '=', $date),
+                            );
+                    }),
+                SelectFilter::make('metode')
+                    ->options([
+                        'offline' => 'Offline',
+                        'online' => 'Online',
+                    ]),
+
+                SelectFilter::make('ruang')
+                    ->options([
+                        'upks' => 'Ruang Rapat UPKS',
+                        'baca' => 'Ruang Baca',
+                    ]),
+                SelectFilter::make('jenis_konsumsi')
+                    ->options([
+                        'snack_minum' => 'Snack dan Minum',
+                        'snack_minum_makan' => 'Snack, Minum, dan Makan',
+                        'makan_minum' => 'Makan dan Minum',
+                    ]),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

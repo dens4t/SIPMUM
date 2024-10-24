@@ -37,7 +37,7 @@ class Pegawai extends Model
     }
 
     public function pendidikan_terakhir(){
-        return $this->belongsTo(PendidikanTerakhir::class, 'id', 'id_pegawai');
+        return $this->hasOne(PendidikanTerakhir::class, 'id', 'id_pendidikan_terakhir');
     }
 
 }

@@ -4,12 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PengajuanSPPDResource\Pages;
 use App\Filament\Resources\PengajuanSPPDResource\RelationManagers;
+use App\Models\Kota;
 use App\Models\Pegawai;
 use App\Models\PengajuanSPPD;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -26,7 +28,7 @@ class PengajuanSPPDResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('id_pegawai')->label('Pegawai (Pemohon)')->options(Pegawai::all()->pluck('nama', 'id'))->searchable()->required(),
+                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->pegawai->id) : Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required()),
                 Forms\Components\Select::make('jenis_sppd')->label('Jenis SPPD')->options([
                     'diklat' => 'Diklat',
                     'non_diklat' => 'Non Diklat',
@@ -43,8 +45,8 @@ class PengajuanSPPDResource extends Resource
                     'kendaraan_dinas' => 'Kendaraan Dinas',
                     'kendaraan_umum' => 'Kendaraan Umum',
                 ])->required(),
-                Forms\Components\TextInput::make('kota_asal')->label('Asal Kota Keberangkatan')->required(),
-                Forms\Components\TextInput::make('kota_tujuan')->label('Tujuan Kota Keberangkatan')->required(),
+                Forms\Components\Select::make('kota_asal')->label('Asal Kota Keberangkatan')->searchable()->options(Kota::all()->pluck('nama', 'id'))->required(),
+                Forms\Components\Select::make('kota_tujuan')->label('Tujuan Kota Keberangkatan')->searchable()->options(Kota::all()->pluck('nama', 'id'))->required(),
                 Forms\Components\TextInput::make('surat_undangan_penugasan')->label('Link Surat Undangan / Surat Penugasan')->required(),
             ]);
     }
@@ -61,7 +63,21 @@ class PengajuanSPPDResource extends Resource
                 Tables\Columns\TextColumn::make('kota_tujuan')->label('Tujuan Kota')->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('jenis_sppd')
+                    ->options([
+                        'diklat' => 'Diklat',
+                        'non_diklat' => 'Non Dikat',
+                    ]),
+                SelectFilter::make('jenis_angkutan')
+                    ->options([
+                        'pesawat' => 'Pesawat',
+                        'kereta_api' => 'Kereta Api',
+                        'kapal' => 'Kapal',
+                        'kendaraan_dinas' => 'Kendaraan Dinas',
+                        'kendaraan_umum' => 'Kendaraan Umum',
+                    ]),
+                SelectFilter::make('kota')
+                    ->relationship('kota', 'nama'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

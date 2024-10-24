@@ -14,4 +14,10 @@ class PengajuanKendaraanDinas extends Model
     public function pegawai(){
         return $this->hasOne(Pegawai::class, 'id','id_pegawai');
     }
+    public function driver(){
+        return $this->hasOne(Pegawai::class, 'id','id_driver');
+    }
+    public function kendaraan(){
+        return $this->hasOne(Pegawai::class, 'id','id_kendaraan');
+    }
 }

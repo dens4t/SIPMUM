@@ -12,6 +12,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -28,7 +29,7 @@ class PengajuanKendaraanDinasResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('id_pegawai')->label('Pegawai (Pemohon)')->options(Pegawai::all()->pluck('nama', 'id'))->searchable()->required(),
+                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->pegawai->id) : Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required()),
                 Forms\Components\DatePicker::make('tanggal_peminjaman')->label('Tanggal Peminjaman')->required(),
                 Forms\Components\DatePicker::make('tanggal_pengembalian')->label('Tanggal Pengembalian')->required(),
                 Forms\Components\Textarea::make('keperluan')->label('Keperluan')->required(),
@@ -52,7 +53,12 @@ class PengajuanKendaraanDinasResource extends Resource
 
             ])
             ->filters([
-                //
+                SelectFilter::make('pegawai')->searchable()->label('Pegawai')
+                    ->relationship('pegawai', 'nama'),
+                SelectFilter::make('driver')->label('Driver')
+                    ->relationship('driver', 'nama'),
+                SelectFilter::make('kendaraan')->label('Kendaraan')
+                    ->relationship('kendaraan', 'nama'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

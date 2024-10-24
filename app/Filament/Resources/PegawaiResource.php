@@ -18,6 +18,7 @@ use Filament\Notifications\Collection;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -128,7 +129,14 @@ class PegawaiResource extends Resource
                 Tables\Columns\TextColumn::make('jabatan.nama')->label('Nama Jabatan')->sortable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('jabatan')->label('Jabatan')
+                ->relationship('jabatan', 'nama'),
+                SelectFilter::make('unit')->label('Unit')
+                ->relationship('unit', 'nama'),
+                SelectFilter::make('jabatan')->label('Jabatan')
+                ->relationship('jabatan', 'nama'),
+                SelectFilter::make('pendidikan_terakhir')->label('Pendidikan Terakhir')
+                ->relationship('pendidikan_terakhir', 'jenjang'),
             ])
             ->actions([
                 // Tables\Actions\DossierPegawaAction::make()->closeModalByClickingAway(false),

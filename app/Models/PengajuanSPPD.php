@@ -14,5 +14,8 @@ class PengajuanSPPD extends Model
     public function pegawai(){
         return $this->hasOne(Pegawai::class, 'id','id_pegawai');
     }
+    public function kota(){
+        return $this->hasOne(Kota::class, 'id','id_ktoa');
+    }
     use HasFactory;
 }

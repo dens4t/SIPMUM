@@ -20,4 +20,7 @@ class Unit extends Model
     public function pegawai(){
         return $this->hasMany(Pegawai::class, 'id','id');
     }
+    public function unit_pembangkit(){
+        return $this->belongsTo(DataUnitPembangkit::class, 'id','id_unit');
+    }
 }

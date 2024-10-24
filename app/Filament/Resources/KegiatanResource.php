@@ -6,9 +6,11 @@ use App\Filament\Resources\KegiatanResource\Pages;
 use App\Filament\Resources\KegiatanResource\RelationManagers;
 use App\Models\Kegiatan;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -49,7 +51,22 @@ class KegiatanResource extends Resource
                 Tables\Columns\TextColumn::make('tanggal')->label('Tanggal'),
             ])
             ->filters([
-                //
+                Filter::make('created_at')
+                        ->form([
+                            DatePicker::make('created_from')->label('Kegiatan dimulai tanggal'),
+                            DatePicker::make('created_until')->label('Hingga tanggal'),
+                        ])
+                        ->query(function (Builder $query, array $data): Builder {
+                            return $query
+                                ->when(
+                                    $data['created_from'],
+                                    fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                                )
+                                ->when(
+                                    $data['created_until'],
+                                    fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                                );
+                        }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

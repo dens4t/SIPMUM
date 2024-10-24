@@ -23,8 +23,13 @@ return new class extends Migration
             $table->string('nomor_prk');
             $table->string('nomor_pembebanan');
             $table->enum('jenis_angkutan', array('pesawat','kereta_api','kapal','kendaraan_dinas','kendaraan_umum'));
-            $table->string('kota_asal');
-            $table->string('kota_tujuan');
+
+            $table->bigInteger('id_kota_asal')->unsigned()->nullable();
+            $table->foreign('id_kota_asal')->references('id')->on('kota')->cascadeOnUpdate()->nullOnDelete();
+
+            $table->bigInteger('id_kota_tujuan')->unsigned()->nullable();
+            $table->foreign('id_kota_tujuan')->references('id')->on('kota')->cascadeOnUpdate()->nullOnDelete();
+
             $table->string('surat_undangan_penugasan');
             $table->timestamps();
         });

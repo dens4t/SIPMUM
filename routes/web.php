@@ -15,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [GuestController::class, 'index']);
+
 Route::get('/permohonan', [GuestController::class, 'permohonan']);
+Route::get('/permohonan/nomor-surat', [GuestController::class, 'datatable_nomor_surat'])->middleware('auth');
+
 Route::get('/tentang-kami', [GuestController::class, 'tentang_kami']);
 Route::get('/struktur-organisasi', [GuestController::class, 'struktur_organisasi']);
 Route::get('/penghargaan', [GuestController::class, 'penghargaan']);
