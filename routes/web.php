@@ -22,6 +22,9 @@ Route::get('/', [GuestController::class, 'index']);
 
 Route::get('/permohonan', [GuestController::class, 'permohonan']);
 Route::get('/permohonan/nomor-surat', [GuestController::class, 'datatable_nomor_surat'])->middleware('auth');
+Route::get('/permohonan/pengajuan-sppd', [GuestController::class, 'datatable_pengajuan_sppd'])->middleware('auth');
+Route::get('/permohonan/pengajuan-kendaraan-dinas', [GuestController::class, 'datatable_pengajuan_kendaraan_dinas'])->middleware('auth');
+Route::get('/permohonan/pengajuan-rapat-konsumsi', [GuestController::class, 'datatable_pengajuan_rapat_konsumsi'])->middleware('auth');
 
 Route::get('/tentang-kami', [GuestController::class, 'tentang_kami']);
 Route::get('/struktur-organisasi', [GuestController::class, 'struktur_organisasi']);

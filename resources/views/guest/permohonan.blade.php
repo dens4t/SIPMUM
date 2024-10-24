@@ -33,32 +33,18 @@
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center" data-aos="fade-up">
             <div class="col-lg-8">
-                <table class="table">
+                <table id="table_nomor_surat" class="table table-primary table-striped" style="width:100%">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Nama Pegawai</th>
+                            <th scope="col">Kode Surat</th>
+                            <th scope="col">Kode Klasifikasi</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Perihal</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
                         </tr>
                     </tbody>
                 </table>
@@ -83,32 +69,18 @@
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center" data-aos="fade-up">
             <div class="col-lg-8">
-                <table class="table">
+                <table id="table_pengajuan_sppd" class="table table-primary table-striped" style="width:100%">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Nama Pegawai</th>
+                            <th scope="col">Jenis SPPD</th>
+                            <th scope="col">Tanggal Awal Kegiatan</th>
+                            <th scope="col">Judul Kegiatan</th>
+                            <th scope="col">Kota Tujuan</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
                         </tr>
                     </tbody>
                 </table>
@@ -135,33 +107,18 @@
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center" data-aos="fade-up">
             <div class="col-lg-8">
-                <table class="table">
+                <table id="table_pengajuan_kendaraan_dinas" class="table table-primary table-striped" style="width:100%">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Nama Pegawai</th>
+                            <th scope="col">Tanggal Pengembalian</th>
+                            <th scope="col">Keperluan</th>
+                            <th scope="col">Tujuan</th>
+                            <th scope="col">Driver</th>
+                            <th scope="col">Jenis Mobil</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -185,33 +142,18 @@
         </div>
         <div class="row gx-4 gx-lg-5 justify-content-center" data-aos="fade-up">
             <div class="col-lg-8">
-                <table class="table">
+                <table id="table_pengajuan_rapat_konsumsi" class="table table-primary table-striped" style="width:100%">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Nama Pegawai</th>
+                            <th scope="col">Judul Rapat</th>
+                            <th scope="col">Tanggal Waktu Mulai</th>
+                            <th scope="col">Metode</th>
+                            <th scope="col">Ruang</th>
+                            <th scope="col">Jenis Konsumsi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colspan="2">Larry the Bird</td>
-                            <td>@twitter</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -238,14 +180,14 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <!-- <th scope="col">#</th>
                             <th scope="col">First</th>
                             <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Handle</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <th scope="row">1</th>
                             <td>Mark</td>
                             <td>Otto</td>
@@ -261,7 +203,7 @@
                             <th scope="row">3</th>
                             <td colspan="2">Larry the Bird</td>
                             <td>@twitter</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
