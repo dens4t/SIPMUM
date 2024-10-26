@@ -1,14 +1,62 @@
 .lytzd-logo{
     width: 175px;
     filter: drop-shadow(0px 0px 1px #fff);
-}
 
+
+}
+.lytzd-logo span{
+    color: black;
+}
 .jadwal-img{
     width: 100%;
+}
+.navbar{
+    background-color: #fff;
+    background-image:url(../assets/img/naruto20.png);
+    background-size: cover;
+    background-position: -405px center;
+    background-repeat: no-repeat;
 }
 
 @media (max-width: 576px) {
     .lytzd-logo{
         width: 125px;
     }
+    .medsos{
+        display: none;
+    }
+    .navbar{
+        background-image: none;
+    }
+    .top-h{
+        display: none;
+    }
+}
+
+.medsos{
+    position: absolute;
+    z-index:999999;
+    top: 300px;
+}
+
+.ms{
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+.ms-ig {
+    background-image: url(../assets/img/ig.png);
+    background-size: cover;
+}
+.ms-tiktok {
+    background-image: url(../assets/img/tiktok.png);
+    background-size: cover;
+}
+.ms-yt {
+    background-image: url(../assets/img/yt.png);
+    background-size: cover;
+}
+.ms-fb {
+    background-image: url(../assets/img/fb.png);
+    background-size: cover;
 }

@@ -1,59 +1,67 @@
 @extends('guest.partials.main')
 @section('header')
 <!-- Masthead-->
-<header class="masthead">
-    <div class="container px-4 px-lg-5 h-100">
-        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
-            <div class="col-lg-8 align-self-end">
-                <h1 class="text-white fw-bolder">SI P-MUM</h1>
-                <hr class="divider" />
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="./assets/img/UP-Kapuas.png" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./assets/img/4FdcqeD7beOO16vFy0i49ZglHtehdKitkeWGQSRm8akC8Hgmm571Er2zLfOv6xioK1NDp2KwOprMdM7AeWrPSms=w16383.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="./assets/img/DYwVmcACoEfKcuhTEICaqlvqwnvFyMU2Vs_868x2TerQuabnisOVCeiEL_HKGGMoD0gr2vrF3vJyiftwIPRg49M=w16383.jpg" class="d-block w-100" alt="...">
+              </div>
             </div>
-            <div class="col-lg-8 align-self-baseline">
-                <p class="text-white fw-bolder mb-5 fs-2" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">(SISTEM PENGELOLAAN SDM DAN UMUM)</p>
-            </div>
-        </div>
-    </div>
-</header>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
 <!-- jadwal-->
 @endsection
 @section('container')
-<section class="page-section bg-primary" id="about">
-    <div class="container px-4 px-lg-5">
-        <div class="row gx-4 gx-lg-5 justify-content-center">
-            <div class="col-lg-8 text-center" data-aos="fade-up">
-                <h2 class="text-white mt-0">JADWAL AGENDA RUTIN</h2>
-                <h2 class="text-white mt-0">PT PLN NUSANTARA POWER</h2>
-                <h2 class="text-white mt-0">UNIT PEMBANGKIT KAPUAS DAN UNIT LAYANAN</h2>
-                <hr class="divider divider-light" />
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div id="carouselExampleIndicators" class="carousel slide">
-                        <div class="carousel-indicators">
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+<section class="page-section">
+            <div class="row justify-content-center">
+                <div class="col-lg-2 px-lg-5">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime numquam provident alias doloribus esse hic nobis iste eaque adipisci consectetur.</p>
+                </div>
+                <div class="col-lg-2">
+                    <div class="row ">
+                        <div class="col-lg-12">
+                            <h4> <i class="bi bi-geo-alt-fill"></i> Alamat</h4>
+                            <p class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, sunt.</p>
                         </div>
-                        <div class="carousel-inner " data-aos="fade-up">
-                            <div class="carousel-item active">
-                                <img src="./assets/img/4FdcqeD7beOO16vFy0i49ZglHtehdKitkeWGQSRm8akC8Hgmm571Er2zLfOv6xioK1NDp2KwOprMdM7AeWrPSms=w16383.jpg" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="./assets/img/DYwVmcACoEfKcuhTEICaqlvqwnvFyMU2Vs_868x2TerQuabnisOVCeiEL_HKGGMoD0gr2vrF3vJyiftwIPRg49M=w16383.jpg" class="d-block w-100" alt="...">
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h4><i class="bi bi-stopwatch-fill"></i>Jam Kerja</h4>
+                            <p>Senin s/d Jumat<br>
+                            <span class="text-muted">08:00 - 16:30</span></p>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
                     </div>
                 </div>
+                <div class="col-lg-2">
+                    <h4><i class="bi bi-person-lines-fill"></i>Kontak</h4>
+                    <p><i class="bi bi-telephone-fill"></i>Phone<br>
+                        <span class="text-muted">08xxxxxxxx</span></p>
+                    <p><i class="bi bi-mailbox-flag"></i>Fax<br>
+                        <span class="text-muted">lorem</span></p>
+                    <p><i class="bi bi-envelope-fill"></i>Email<br>
+                        <span class="text-muted">lorem@mail.com</span></p>
+                </div>  
+                <div class="col-lg-2">
+                    <h4><i class="bi bi-pin-map"></i>Kantor Pusat</h4>
+                    <h4>Jl. Ketintang Baru No. 11.</h4>
+                    <p class="text-muted">Lorem ipsum dolor sit amet.</p>
+                    <h4>Kantor Perwakilan</h4>
+                    <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, tenetur?</p>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
+          </section>
 
 @endsection
