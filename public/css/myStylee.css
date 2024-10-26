@@ -4,11 +4,50 @@
 
 
 }
+
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* remove the gap so it doesn't close */
+
+}
 .lytzd-logo span{
     color: black;
 }
 .jadwal-img{
     width: 100%;
+}
+
+.me-2{
+    border: none;
+    width: 150px;
+    height: 30px;
+    outline: none;
+}
+
+.myBtn{
+    border: none;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    background-color: orange;
+}
+.myBtna{
+    border: none;
+    width: 60px;
+    height: 30px;
+    outline: none;
+    background-color: orange;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 5px;
+    font-size: 10px;
+    transition: .2s;    
+}
+
+.myBtna:hover{
+    background-color: white;
+    color: orange;
 }
 .navbar{
     background-color: #fff;
@@ -30,6 +69,13 @@
     }
     .top-h{
         display: none;
+    }
+
+    .navbar{
+        transition: 2s;
+    }
+    .footer-2{
+        padding: 20px;
     }
 }
 
@@ -60,3 +106,48 @@
     background-image: url(../assets/img/fb.png);
     background-size: cover;
 }
+
+@media (min-width: 200px) {
+    .animate {
+      animation-duration: 0.3s;
+      -webkit-animation-duration: 0.3s;
+      animation-fill-mode: both;
+      -webkit-animation-fill-mode: both;
+    }
+  }
+  
+  @keyframes slideIn {
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0rem);
+      opacity: 1;
+    }
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+  }
+  
+  @-webkit-keyframes slideIn {
+    0% {
+      -webkit-transform: transform;
+      -webkit-opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+      -webkit-opacity: 1;
+    }
+    0% {
+      -webkit-transform: translateY(1rem);
+      -webkit-opacity: 0;
+    }
+  }
+  
+  .slideIn {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+  }
+  
