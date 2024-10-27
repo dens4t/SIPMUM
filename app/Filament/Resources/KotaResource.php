@@ -22,6 +22,10 @@ class KotaResource extends Resource
     protected static ?string $pluralModelLabel  = 'Kota';
     protected static ?int $navigationSort = 0;
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->is_admin;
+    }
     public static function form(Form $form): Form
     {
         return $form

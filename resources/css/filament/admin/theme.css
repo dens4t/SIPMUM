@@ -1,0 +1,95 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+/* Sidebar navigation background styling */
+.fi-sidebar-nav {
+    @apply bg-gradient-to-b from-blue-gradient-start to-blue-gradient-end;
+}
+
+/* Sidebar item hover effect */
+.fi-sidebar-nav .fi-sidebar-item>a:hover {
+    background-color: rgba(220, 220, 220, 0.6);
+    /* Light gray background with some opacity */
+}
+
+/* Optional: active state styling to match the hover effect */
+.fi-sidebar-item-active>a {
+    background-color: rgba(220, 220, 220, 0.3);
+    /* Keep consistency for active items */
+}
+
+/* Force white text color on all sidebar items */
+.fi-sidebar-nav .fi-sidebar-item>a,
+.fi-sidebar-item-active>a,
+.fi-sidebar-nav .fi-sidebar-item>a:hover {
+    color: white !important;
+}
+
+/* Sidebar group text color */
+.fi-sidebar-group {
+    color: white;
+    /* Set the text color of the sidebar group to white */
+}
+
+/* Sidebar group item text color */
+.fi-sidebar-group .fi-sidebar-item>a,
+.fi-sidebar-group-button>button>svg,
+.fi-sidebar-group-label {
+    color: white;
+    font-weight: bolder;
+    /* Ensure the text color of items is also white */
+}
+
+/* Optional: Change hover color for better visibility */
+.fi-sidebar-group .fi-sidebar-item>a:hover {
+    color: #e0e0e0;
+    /* Change hover text color to a lighter shade for contrast */
+}
+
+/* Ensure icons and spans are also white */
+.fi-sidebar-nav .fi-sidebar-item>a>svg,
+.fi-sidebar-nav .fi-sidebar-item>a>span,
+.fi-sidebar-item-active>a>svg,
+.fi-sidebar-item-active>a>span {
+    color: white !important;
+}
+
+.fi-main {
+    background: linear-gradient(in oklab, #e2ebfc, #ffffff);
+    /* Light gradient from #e2ebfc to white */
+    min-height: 100vh;
+    /* Ensure it covers full height */
+    padding: 20px;
+    /* Optional: add padding for content */
+}
+
+
+
+/* Hide scrollbar while keeping content scrollable */
+.fi-sidebar-nav {
+    overflow-y: auto;
+    /* Ensures content can scroll vertically */
+    scrollbar-width: none;
+
+    /* Firefox */
+
+    border-top-right-radius: 20px;
+    /* Radius kecil di sudut kanan atas */
+    border-bottom-right-radius: 20px;
+    /* Radius kecil di sudut kanan bawah */
+    border-top-left-radius: 20px;
+    /* Radius kecil di sudut kanan atas */
+    border-bottom-left-radius: 20px;
+    /* Radius kecil di sudut kanan bawah */
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    /* Border kanan untuk tampilan lebih jelas */
+    background-color: transparent;
+
+
+}
+
+/* Hide scrollbar in WebKit browsers (Chrome, Safari, Edge) */
+.fi-sidebar-nav::-webkit-scrollbar {
+    display: none;
+}
