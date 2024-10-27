@@ -33,6 +33,7 @@ Route::get('/budaya-perusahaan', [GuestController::class, 'budaya_perusahaan']);
 Route::get('/sertifikasi', [GuestController::class, 'sertifikasi']);
 Route::get('/unit', [GuestController::class, 'unit']);
 Route::get('/siaran-pers', [GuestController::class, 'siaran_pers']);
+Route::get('/kontak', [GuestController::class, 'kontak']);
 
 
 Route::get('/login', function () {

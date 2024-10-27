@@ -6,11 +6,18 @@ use App\Models\NomorSurat;
 use App\Models\PengajuanKendaraanDinas;
 use App\Models\PengajuanRapatKonsumsi;
 use App\Models\PengajuanSPPD;
+use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 use Yajra\DataTables\DataTables;
 
 class GuestController extends Controller
 {
+    protected $units;
+    public function __construct(){
+        $this->units = Unit::all();
+        View::share('units', $this->units);
+    }
     public function index()
     {
         return view('guest.index');
@@ -47,6 +54,10 @@ class GuestController extends Controller
     public function permohonan()
     {
         return view('guest.permohonan');
+    }
+    public function kontak()
+    {
+        return view('guest.kontak');
     }
     public function penghargaan()
     {
