@@ -24,6 +24,7 @@ class User extends Authenticatable
         'username',
         'password',
         'id_pegawai',
+        'last_login_at',
     ];
 
     /**
@@ -43,6 +44,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login_at' => 'datetime',
     ];
     public function pegawai(){
         return $this->hasOne(Pegawai::class, 'id','id_pegawai');
