@@ -15,16 +15,16 @@
 <section class="top-h" style="background-color: #14a2ba !important;">
     <div class="row justify-content-center p-2">
         <div class="col-lg-4 d-flex justify-content-between align-items-center text-white" style="font-family:Arial, Helvetica, sans-serif; font-size: 12px;">
-            <span><i class="bi bi-telephone-fill"></i> 08xxxxxxxx</span>
-            <span><i class="bi bi-envelope-fill"></i> lorem@gmail.com</span>
-            <span><i class="bi bi-geo-alt-fill"></i> Jl Lorem, ipsum dolor.</span>
+            <span><i class="bi bi-telephone-fill"></i> 0823482349</span>
+            <span><i class="bi bi-envelope-fill"></i> upltg.kapuas@gmail.com </span>
+            <span><i class="bi bi-geo-alt-fill"></i> Jl. Khatulistiwa km 2,7.</span>
         </div>
         <div class="col-lg-3 d-flex justify-content-end align-items-center text-white" style="font-family:Arial, Helvetica, sans-serif; font-size: 10px;">
             <form class="d-flex" role="search">
                 <input class="me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="myBtn" type="submit"><i class="bi bi-search"></i></button>
             </form>
-            <a class="nav-link ms-3 myBtna" href="{{ url('admin') }}">login</a>
+            <a class="nav-link ms-3 myBtna" href="{{ url('admin') }}">Login</a>
         </div>
     </div>
 </section>

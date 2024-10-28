@@ -29,13 +29,13 @@
 <section class="page-section">
     <div class="row justify-content-center">
         <div class="col-lg-2 px-lg-5">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime numquam provident alias doloribus esse hic nobis iste eaque adipisci consectetur.</p>
+            <p>PLNNP ULPLTG/D Siantan merupakan salah satu Unit Layanan Pembangkitan Listrik Tenaga Gas dan Diesel yang terletak di Jl. Khatulistiwa Km 2,7, Siantan Hilir, Kecamatan Pontianak Hilir, Kalimantan Barat.</p>
         </div>
         <div class="col-lg-2">
             <div class="row ">
                 <div class="col-lg-12">
                     <h4> <i class="bi bi-geo-alt-fill"></i> Alamat</h4>
-                    <p class="text-muted">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, sunt.</p>
+                    <p class="text-muted">Jl. Khatulistiwa km 2,7 , Siantan Hilir, Kec Pontianak Hilir, Kalimantan Barat</p>
                 </div>
             </div>
             <div class="row">
@@ -48,20 +48,20 @@
             </div>
         </div>
         <div class="col-lg-2">
-            <h4><i class="bi bi-person-lines-fill"></i>Kontak</h4>
-            <p><i class="bi bi-telephone-fill"></i>Phone<br>
-                <span class="text-muted">08xxxxxxxx</span>
+            <h4><i class="bi bi-person-lines-fill"></i> Kontak</h4>
+            <p><i class="bi bi-telephone-fill"></i> Phone<br>
+                <span class="text-muted">0823482349</span>
             </p>
-            <p><i class="bi bi-mailbox-flag"></i>Fax<br>
-                <span class="text-muted">lorem</span>
+            <p><i class="bi bi-mailbox-flag"></i> Fax<br>
+                <span class="text-muted">(000)-123456</span>
             </p>
-            <p><i class="bi bi-envelope-fill"></i>Email<br>
-                <span class="text-muted">lorem@mail.com</span>
+            <p><i class="bi bi-envelope-fill"></i> Email<br>
+                <span class="text-muted">upltg.kapuas@gmail.com</span>
             </p>
         </div>
         <div class="col-lg-2">
-            <h4><i class="bi bi-pin-map"></i>Kantor Pusat</h4>
-            <h4>Jl. Ketintang Baru No. 11.</h4>
+            <h4><i class="bi bi-pin-map"></i> Kantor Pusat</h4>
+            <h4>Jl. Khatulistiwa km 2,7</h4>
             <p class="text-muted">Lorem ipsum dolor sit amet.</p>
             <h4>Kantor Perwakilan</h4>
             <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, tenetur?</p>
