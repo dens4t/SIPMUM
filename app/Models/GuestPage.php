@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Kota extends Model
+class GuestPage extends Model
 {
-    protected $table = 'kota';
+    protected $table = 'guest_page';
     protected $guarded = [];
     use HasFactory;
-
+    protected $casts = [
+        'thumbnail' => 'array',
+    ];
 }

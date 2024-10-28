@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GuestPage;
 use App\Models\NomorSurat;
 use App\Models\PengajuanKendaraanDinas;
 use App\Models\PengajuanRapatKonsumsi;
@@ -14,6 +15,7 @@ use Yajra\DataTables\DataTables;
 class GuestController extends Controller
 {
     protected $units;
+    protected $pages;
     public function __construct(){
         $this->units = Unit::all();
         View::share('units', $this->units);
@@ -21,6 +23,15 @@ class GuestController extends Controller
     public function index()
     {
         return view('guest.index');
+    }
+    public function page($slug){
+        $data = GuestPage::where('slug', $slug)->firstOrFail();
+        return view('guest.guest_page', compact('data'));
+    }
+
+    public function berita(){
+        $data = GuestPage::where('active','1')->get();
+        return view('guest.berita', compact('data'));
     }
     public function datatable_nomor_surat(Request $request)
     {

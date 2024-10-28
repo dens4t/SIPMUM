@@ -21,6 +21,8 @@ Route::get('/ngelink', function () {
 Route::get('/', [GuestController::class, 'index']);
 
 Route::get('/permohonan', [GuestController::class, 'permohonan']);
+Route::get('/page/{slug}', [GuestController::class, 'page']);
+Route::get('/berita', [GuestController::class, 'berita']);
 Route::get('/permohonan/nomor-surat', [GuestController::class, 'datatable_nomor_surat']);
 Route::get('/permohonan/pengajuan-sppd', [GuestController::class, 'datatable_pengajuan_sppd']);
 Route::get('/permohonan/pengajuan-kendaraan-dinas', [GuestController::class, 'datatable_pengajuan_kendaraan_dinas']);

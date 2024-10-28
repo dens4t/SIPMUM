@@ -43,6 +43,7 @@
                         <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('penghargaan') }}">Penghargaan</a></li>
                         <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('budaya-perusahaan') }}">Budaya Perusahaan</a></li>
                         <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('sertifikasi') }}">Sertifikasi</a></li>
+
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -64,6 +65,8 @@
                         Media
                     </a>
                     <ul class="dropdown-menu animate slideIn" style="border: 0 !important; border-radius: 0; font-family:Arial, Helvetica, sans-serif;">
+
+                        <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('berita') }}"><i class="bi bi-newspaper"></i> Berita</a></li>
                         <li><a class="dropdown-item fw-bolder text-muted" href="#"><i class="bi bi-collection-play-fill"></i> Siaran Pers</a></li>
                     </ul>
                 </li>

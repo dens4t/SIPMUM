@@ -29,7 +29,7 @@
 <section class="page-section">
     <div class="row justify-content-center">
         <div class="col-lg-2 px-lg-5">
-            <p>PLNNP ULPLTG/D Siantan merupakan salah satu Unit Layanan Pembangkitan Listrik Tenaga Gas dan Diesel yang terletak di Jl. Khatulistiwa Km 2,7, Siantan Hilir, Kecamatan Pontianak Hilir, Kalimantan Barat.</p>
+            <p>PLNNP ULPLTG/D Siantan merupakan salah satu Unit Layanan Pembangkitan Listrik Tenaga Gas dan Diesel yang terletak di Jl. Khatulistiwa Km 2,7, Siantan Hilir, Kecamatan Siantan Hilir, Kalimantan Barat.</p>
         </div>
         <div class="col-lg-2">
             <div class="row ">
@@ -40,7 +40,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <h4><i class="bi bi-stopwatch-fill"></i>Jam Kerja</h4>
+                    <h4><i class="bi bi-stopwatch-fill"></i> Jam Kerja</h4>
                     <p>Senin s/d Jumat<br>
                         <span class="text-muted">08:00 - 16:30</span>
                     </p>
@@ -64,7 +64,7 @@
             <h4>Jl. Khatulistiwa km 2,7</h4>
             <p class="text-muted">Lorem ipsum dolor sit amet.</p>
             <h4>Kantor Perwakilan</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, tenetur?</p>
+            <p class="text-muted">Gedung 18 Office Park Lantai B ABCD. Jalan TB Simatupang Nomor 18, Kel. Kebagusan, Kec. Pasar Minggu, Kota Adm. Jakarta Selatan, Provinsi DKI Jakarta 12520.</p>
         </div>
     </div>
 </section>

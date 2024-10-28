@@ -2815,6 +2815,83 @@
             "install-path": "../hamcrest/hamcrest-php"
         },
         {
+            "name": "ibrahimbougaoua/filament-sort-order",
+            "version": "v1.1.6",
+            "version_normalized": "1.1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ibrahimBougaoua/filament-sort-order.git",
+                "reference": "a99f80b8d2d59aae1fe491073a0d744b2a14c95d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ibrahimBougaoua/filament-sort-order/zipball/a99f80b8d2d59aae1fe491073a0d744b2a14c95d",
+                "reference": "a99f80b8d2d59aae1fe491073a0d744b2a14c95d",
+                "shasum": ""
+            },
+            "require": {
+                "filament/filament": "^2.0|^3.0-stable",
+                "illuminate/contracts": "^10.0|^11.0",
+                "php": "^8.1",
+                "spatie/laravel-package-tools": "^1.14.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.9",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^8.0",
+                "pestphp/pest": "^2.0",
+                "pestphp/pest-plugin-arch": "^2.0",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-phpunit": "^1.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "time": "2024-09-24T10:02:11+00:00",
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "IbrahimBougaoua\\FilamentSortOrder\\FilamentSortOrderServiceProvider"
+                    ],
+                    "aliases": {
+                        "FilamentSortOrder": "IbrahimBougaoua\\FilamentSortOrder\\Facades\\FilamentSortOrder"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "IbrahimBougaoua\\FilamentSortOrder\\": "src/",
+                    "IbrahimBougaoua\\FilamentSortOrder\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ibrahim",
+                    "email": "ibrahim.bougaoua@etu.usthb.dz",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This is my package filament-sort-order",
+            "homepage": "https://github.com/ibrahimbougaoua/filament-sort-order",
+            "keywords": [
+                "filament-sort-order",
+                "ibrahimBougaoua",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/ibrahimBougaoua/filament-sort-order/issues",
+                "source": "https://github.com/ibrahimBougaoua/filament-sort-order/tree/v1.1.6"
+            },
+            "install-path": "../ibrahimbougaoua/filament-sort-order"
+        },
+        {
             "name": "kirschbaum-development/eloquent-power-joins",
             "version": "3.5.8",
             "version_normalized": "3.5.8.0",

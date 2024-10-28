@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'c193014f82a0f192dd5691821b910e1e69cd1022',
+        'reference' => '0eec7c7b0d09f566118ac89a460fcf477b148749',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -364,6 +364,15 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'ibrahimbougaoua/filament-sort-order' => array(
+            'pretty_version' => 'v1.1.6',
+            'version' => '1.1.6.0',
+            'reference' => 'a99f80b8d2d59aae1fe491073a0d744b2a14c95d',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ibrahimbougaoua/filament-sort-order',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'illuminate/auth' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -661,7 +670,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'c193014f82a0f192dd5691821b910e1e69cd1022',
+            'reference' => '0eec7c7b0d09f566118ac89a460fcf477b148749',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
