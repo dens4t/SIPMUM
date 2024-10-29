@@ -6,6 +6,7 @@ use App\Filament\Resources\NomorSuratResource\Pages;
 use App\Filament\Resources\NomorSuratResource\RelationManagers;
 use App\Models\NomorSurat;
 use App\Models\Pegawai;
+use DragonCode\Contracts\Cashier\Resources\Model;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
@@ -39,13 +40,14 @@ class NomorSuratResource extends Resource
                 Forms\Components\Select::make('kode_klasifikasi')->options([
                     'KEU.01.02' => 'Untuk BA (Pembayaran Eksternal)',
                     'ORG.00.02' => 'Untuk SK Tim (Struktur Organisasi)',
-                    'SDM.15.01 ' => 'Untuk Surat Keterangan (Personal File)',
+                    'SDM.15.01' => 'Untuk Surat Keterangan (Personal File)',
                 ])->label('Kode Klasifikasi')->required(),
                 Forms\Components\Textarea::make('perihal')->label('Perihal')->required(),
                 Forms\Components\DatePicker::make('tanggal')->label('Tanggal')->default(now())->required(),
                 Forms\Components\Hidden::make('kode_unit')->label('Kode Unit')->default('UPKS')->required(),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
@@ -57,7 +59,7 @@ class NomorSuratResource extends Resource
             ->filters(
                 [
                     SelectFilter::make('pegawai')->searchable()->label('Pegawai')
-                    ->relationship('pegawai', 'nama'),
+                        ->relationship('pegawai', 'nama'),
                     Filter::make('created_at')
                         ->form([
                             DatePicker::make('created_from')->label('Kegiatan dimulai tanggal'),

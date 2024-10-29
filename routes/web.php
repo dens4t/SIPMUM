@@ -37,7 +37,6 @@ Route::get('/unit', [GuestController::class, 'unit']);
 Route::get('/siaran-pers', [GuestController::class, 'siaran_pers']);
 Route::get('/kontak', [GuestController::class, 'kontak']);
 
-
 Route::get('/login', function () {
     return redirect(route('filament.admin.auth.login'));
 })->name('login');

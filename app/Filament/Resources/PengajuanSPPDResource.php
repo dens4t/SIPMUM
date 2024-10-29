@@ -45,8 +45,8 @@ class PengajuanSPPDResource extends Resource
                     'kendaraan_dinas' => 'Kendaraan Dinas',
                     'kendaraan_umum' => 'Kendaraan Umum',
                 ])->required(),
-                Forms\Components\Select::make('kota_asal')->label('Asal Kota Keberangkatan')->searchable()->options(Kota::all()->pluck('nama', 'id'))->required(),
-                Forms\Components\Select::make('kota_tujuan')->label('Tujuan Kota Keberangkatan')->searchable()->options(Kota::all()->pluck('nama', 'id'))->required(),
+                Forms\Components\Select::make('id_kota_asal')->label('Asal Kota Keberangkatan')->searchable()->options(Kota::all()->pluck('nama', 'id'))->required(),
+                Forms\Components\Select::make('id_kota_tujuan')->label('Tujuan Kota Keberangkatan')->searchable()->options(Kota::all()->pluck('nama', 'id'))->required(),
                 Forms\Components\TextInput::make('surat_undangan_penugasan')->label('Link Surat Undangan / Surat Penugasan')->required(),
             ]);
     }
