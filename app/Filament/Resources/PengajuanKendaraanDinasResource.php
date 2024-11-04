@@ -58,7 +58,7 @@ class PengajuanKendaraanDinasResource extends Resource
                 SelectFilter::make('driver')->label('Driver')
                     ->relationship('driver', 'nama'),
                 SelectFilter::make('kendaraan')->label('Kendaraan')
-                    ->relationship('kendaraan', 'nama'),
+                    ->relationship('kendaraan', 'jenis_mobil'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

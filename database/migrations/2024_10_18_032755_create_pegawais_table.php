@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('jenjang_jabatan')->nullable();
             $table->date('tanggal_grade')->nullable();
             $table->date('tanggal_mulai')->nullable();
+            $table->string('profile')->nullable();
 
             $table->bigInteger('id_pendidikan_terakhir')->unsigned()->nullable();
             $table->foreign('id_pendidikan_terakhir')->references('id')->on('pendidikan_terakhir')->cascadeOnUpdate()->nullOnDelete();

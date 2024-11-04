@@ -4,7 +4,7 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <footer class="bg-light py-5">
     <div class="container px-4 px-lg-5">
-        <div class="small text-center text-muted">Copyright &copy; 2023 - Company Name</div>
+        <div class="small text-center text-muted">Copyright &copy; 2023 - PLN</div>
     </div>
 </footer>
 <!-- Bootstrap core JS-->
@@ -71,8 +71,8 @@
                     name: 'judul_kegiatan'
                 },
                 {
-                    data: 'kota_tujuan',
-                    name: 'kota_tujuan'
+                    data: 'kota_tujuan.nama',
+                    name: 'kota_tujuan.nama'
                 },
             ]
         });

@@ -16,7 +16,8 @@ class GuestController extends Controller
 {
     protected $units;
     protected $pages;
-    public function __construct(){
+    public function __construct()
+    {
         $this->units = Unit::all();
         View::share('units', $this->units);
     }
@@ -24,13 +25,18 @@ class GuestController extends Controller
     {
         return view('guest.index');
     }
-    public function page($slug){
-        $data = GuestPage::where('slug', $slug)->firstOrFail();
-        return view('guest.guest_page', compact('data'));
+    public function siaran_pers_page($slug)
+    {
+        $data = GuestPage::where('active', '1')->select('id', 'thumbnail', 'slug', 'title', 'active', 'created_at')->get();
+        $popular = $data->take(-3);
+
+        $post = GuestPage::where('slug', $slug)->firstOrFail();
+        return view('guest.siaran_pers-detail', compact('data','popular','post'));
     }
 
-    public function berita(){
-        $data = GuestPage::where('active','1')->get();
+    public function berita()
+    {
+        $data = GuestPage::where('active', '1')->get();
         return view('guest.berita', compact('data'));
     }
     public function datatable_nomor_surat(Request $request)
@@ -46,13 +52,13 @@ class GuestController extends Controller
 
     public function datatable_pengajuan_sppd(Request $request)
     {
-        $query = PengajuanSPPD::with('pegawai'); // Assuming you want to join with pegawai
+        $query = PengajuanSPPD::with('pegawai','kota_tujuan','kota_asal'); // Assuming you want to join with pegawai
         return DataTables::of($query)
             ->make(true);
     }
     public function datatable_pengajuan_kendaraan_dinas(Request $request)
     {
-        $query = PengajuanKendaraanDinas::with('pegawai', 'driver','kendaraan'); // Assuming you want to join with pegawai
+        $query = PengajuanKendaraanDinas::with('pegawai', 'driver', 'kendaraan'); // Assuming you want to join with pegawai
         return DataTables::of($query)
             ->make(true);
     }
@@ -94,9 +100,18 @@ class GuestController extends Controller
     {
         return view('guest.unit');
     }
+    public function unit_get($unit)
+    {
+        $unit = Unit::where('nama', $unit)->firstOrFail();
+        if ($unit->page_unit == null) return abort(404);
+        return view('guest.unit', compact('unit'));
+    }
 
     public function siaran_pers()
     {
-        return view('guest.siaran_pers');
+        $data = GuestPage::where('active', '1')->select('id', 'thumbnail', 'slug', 'title', 'active', 'created_at')->get();
+        $slides = $data->take(3);
+        $popular = $data->take(-3);
+        return view('guest.siaran_pers', compact('data', 'slides', 'popular'));
     }
 }

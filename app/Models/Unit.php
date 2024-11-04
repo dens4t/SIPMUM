@@ -23,4 +23,10 @@ class Unit extends Model
     public function unit_pembangkit(){
         return $this->belongsTo(DataUnitPembangkit::class, 'id','id_unit');
     }
+    public function dokumentasi_unit(){
+        return $this->belongsTo(DokumentasiUnit::class, 'id','id_unit');
+    }
+    public function page_unit(){
+        return $this->belongsTo(PageUnit::class, 'id','id_unit');
+    }
 }

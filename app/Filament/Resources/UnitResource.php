@@ -2,9 +2,13 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\DokumentasiUnitResource\RelationManagers\UnitRelationManager;
 use App\Filament\Resources\UnitResource\Pages;
 use App\Filament\Resources\UnitResource\RelationManagers;
+use App\Filament\Resources\UnitResource\RelationManagers\DokumentasiUnitRelationManager;
 use App\Models\DataUnitPembangkit;
+use App\Models\DokumentasiUnit;
+use App\Models\PageUnit;
 use App\Models\Unit;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -49,9 +53,13 @@ class UnitResource extends Resource
     {
         return $table
             ->columns([
+
+                Tables\Columns\ImageColumn::make('page_unit.thumbnail')->label('Thumbnail')->circular()->size(250),
                 Tables\Columns\TextColumn::make('nama')->label('Nama')->state(function (Model $record): string {
                     return Str::upper($record->jenis) . " " . $record->nama;
                 })->sortable(),
+                Tables\Columns\IconColumn::make('page_unit')->label('Ketersediaan Halaman')
+                ->boolean()
                 //
             ])
             ->filters([
@@ -91,6 +99,33 @@ class UnitResource extends Resource
                             ->success()
                             ->send();
                     }),
+                Tables\Actions\Action::make('buatPage')->label('Halaman')->slideOver()->icon('heroicon-o-paper-airplane')
+                    ->fillForm(function (Unit $record) {
+                        $data = [];
+                        if ($record->page_unit) {
+                            $data['thumbnail'] = $record->page_unit->thumbnail;
+                            $data['content'] = $record->page_unit->content;
+                            $data['url_google_map'] = $record->page_unit->url_google_map;
+                        }
+                        return $data;
+                    })
+                    ->form([
+                        Forms\Components\FileUpload::make('thumbnail')
+                            ->label('Thumbnail')
+                            ->directory('thumbnail')->storeFileNamesIn('thumbnail')
+                            ->maxSize(10240) // Limit file size to 10MB
+                            ->acceptedFileTypes(['image/jpeg', 'image/png'])->openable()->columnSpan('full'),
+                        Forms\Components\MarkdownEditor::make('content')->required()->columnSpan('full'),
+                        Forms\Components\TextInput::make('url_google_map')->label('URL Google MAP')->columnSpan('full'),
+                    ])
+                    ->action(function (array $data, Unit $record) {
+                        $data['id_unit'] = $record['id'];
+                        PageUnit::updateOrCreate(['id_unit' => $record->id], $data);
+                        Notification::make()
+                            ->title('Berhasil menyimpan halaman')
+                            ->success()
+                            ->send();
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -99,6 +134,12 @@ class UnitResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            DokumentasiUnitRelationManager::class
+        ];
+    }
     public static function getPages(): array
     {
         return [

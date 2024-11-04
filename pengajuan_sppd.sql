@@ -37,9 +37,12 @@ CREATE TABLE IF NOT EXISTS `pengajuan_sppd` (
   CONSTRAINT `pengajuan_sppd_id_kota_asal_foreign` FOREIGN KEY (`id_kota_asal`) REFERENCES `kota` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `pengajuan_sppd_id_kota_tujuan_foreign` FOREIGN KEY (`id_kota_tujuan`) REFERENCES `kota` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `pengajuan_sppd_id_pegawai_foreign` FOREIGN KEY (`id_pegawai`) REFERENCES `pegawai` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table sipmum.pengajuan_sppd: ~0 rows (approximately)
+-- Dumping data for table sipmum.pengajuan_sppd: ~2 rows (approximately)
+INSERT INTO `pengajuan_sppd` (`id`, `id_pegawai`, `jenis_sppd`, `judul_kegiatan`, `tanggal_awal_kegiatan`, `tanggal_akhir_kegiatan`, `nomor_prk`, `nomor_pembebanan`, `jenis_angkutan`, `id_kota_asal`, `id_kota_tujuan`, `surat_undangan_penugasan`, `created_at`, `updated_at`) VALUES
+	(1, 2, 'diklat', 'dshu7hfg', '2024-10-29', '2024-10-30', 'adjasdhu', 'uahduadhu', 'pesawat', 2, 1, 'ahdaudhausd', '2024-10-29 15:32:31', '2024-10-29 15:32:31'),
+	(2, 2, 'diklat', 'dshu7hfg', '2024-10-29', '2024-10-30', 'adjasdhu', 'uahduadhu', 'pesawat', 2, 1, 'ahdaudhausd', '2024-10-29 15:37:35', '2024-10-29 15:37:35');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

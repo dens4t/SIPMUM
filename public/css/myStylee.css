@@ -5,7 +5,6 @@
 
 }
 
-
 .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0; /* remove the gap so it doesn't close */
@@ -42,7 +41,7 @@
     box-sizing: border-box;
     padding: 5px;
     font-size: 10px;
-    transition: .2s;    
+    transition: .2s;
 }
 
 .myBtna:hover{
@@ -115,7 +114,7 @@
       -webkit-animation-fill-mode: both;
     }
   }
-  
+
   @keyframes slideIn {
     0% {
       transform: translateY(1rem);
@@ -130,7 +129,7 @@
       opacity: 0;
     }
   }
-  
+
   @-webkit-keyframes slideIn {
     0% {
       -webkit-transform: transform;
@@ -145,9 +144,20 @@
       -webkit-opacity: 0;
     }
   }
-  
+
   .slideIn {
     -webkit-animation-name: slideIn;
     animation-name: slideIn;
   }
-  
+
+  .linkstylepers{
+    text-decoration: none;
+    color:  black;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+
+  .linkstylepers-1{
+    text-decoration: none;
+    color:  #fff;
+    font-family:Arial, Helvetica, sans-serif;
+  }

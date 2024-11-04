@@ -13,7 +13,11 @@ class ManageGuestPages extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make()->closeModalByClickingAway(false),
+            Actions\CreateAction::make()
+                // ->after(function ($data) {
+                //     dd($data);
+                // })
+                ->closeModalByClickingAway(false),
         ];
     }
 }

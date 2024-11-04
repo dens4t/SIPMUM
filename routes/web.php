@@ -21,7 +21,6 @@ Route::get('/ngelink', function () {
 Route::get('/', [GuestController::class, 'index']);
 
 Route::get('/permohonan', [GuestController::class, 'permohonan']);
-Route::get('/page/{slug}', [GuestController::class, 'page']);
 Route::get('/berita', [GuestController::class, 'berita']);
 Route::get('/permohonan/nomor-surat', [GuestController::class, 'datatable_nomor_surat']);
 Route::get('/permohonan/pengajuan-sppd', [GuestController::class, 'datatable_pengajuan_sppd']);
@@ -33,8 +32,10 @@ Route::get('/struktur-organisasi', [GuestController::class, 'struktur_organisasi
 Route::get('/penghargaan', [GuestController::class, 'penghargaan']);
 Route::get('/budaya-perusahaan', [GuestController::class, 'budaya_perusahaan']);
 Route::get('/sertifikasi', [GuestController::class, 'sertifikasi']);
-Route::get('/unit', [GuestController::class, 'unit']);
+Route::get('/unit/{unit}', [GuestController::class, 'unit_get']);
 Route::get('/siaran-pers', [GuestController::class, 'siaran_pers']);
+Route::get('/siaran-pers', [GuestController::class, 'siaran_pers']);
+Route::get('/siaran-pers/{slug}', [GuestController::class, 'siaran_pers_page']);
 Route::get('/kontak', [GuestController::class, 'kontak']);
 
 Route::get('/login', function () {

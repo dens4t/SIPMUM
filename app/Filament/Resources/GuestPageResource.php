@@ -26,7 +26,7 @@ class GuestPageResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-newspaper';
     protected static ?string $navigationGroup = 'Tamu';
-    protected static ?string $pluralModelLabel  = 'Berita';
+    protected static ?string $pluralModelLabel  = 'Siaran Pers';
     protected static ?int $navigationSort = 0;
 
     public static function form(Form $form): Form
@@ -35,31 +35,28 @@ class GuestPageResource extends Resource
             ->schema([
                 Fieldset::make('')
                     ->schema([
-                        Forms\Components\Select::make('Menu')->label('Menu')->options([
-                            'profil' => 'Profil',
-                            'unit_pembangkit' => 'Unit',
-                            'media' => 'Media',
-                        ]),
-                        Forms\Components\TextInput::make('order')->default(0)->numeric()->label('Urutan Post Pada Menu')->nullable(),
+                        Forms\Components\TextInput::make('title')->required()
+                            ->maxLength(255)
+                            ->live(onBlur: true)
+                            ->afterStateUpdated(function (Set $set, $state) {
+                                $set('slug', Str::slug($state));
+                            }),
+                        Forms\Components\Hidden::make('menu')->default('pers'),
+                        Forms\Components\Hidden::make('order')->default(0)->default('-1'),
                         Forms\Components\TextInput::make('slug')
                             ->reactive()
                             ->required(),
                     ])
-                    ->columns(3),
-                Forms\Components\TextInput::make('title')->required()
-                    ->maxLength(255)
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function (Set $set, $state) {
-                        $set('slug', Str::slug($state));
-                    })->columnSpan('full'),
+                    ->columns(2),
+
 
                 Forms\Components\MarkdownEditor::make('content')->required()->columnSpan('full'),
                 Forms\Components\FileUpload::make('thumbnail')
-                    ->directory('berita')->storeFileNamesIn('thumbnail')
+                    ->label('Thumbnail')
+                    ->directory('thumbnail')->storeFileNamesIn('thumbnail')
                     ->maxSize(10240) // Limit file size to 10MB
-                    ->image()->openable()->previewable(false)->nullable()->columnSpan('full'),
-                Forms\Components\Toggle::make('active')->columnSpan('full'),
-
+                    ->acceptedFileTypes(['image/jpeg', 'image/png'])->openable()->columnSpan('full'),
+                Forms\Components\Toggle::make('active')->default(1)->columnSpan('full'),
             ]);
     }
 
@@ -68,9 +65,10 @@ class GuestPageResource extends Resource
         return $table
             ->columns([
                 //
-                Tables\Columns\TextColumn::make('menu')->default('-')->sortable(),
-                Tables\Columns\TextColumn::make('title')->sortable(),
-                Tables\Columns\ToggleColumn::make('active')->sortable()->disabled(),
+                // Tables\Columns\TextColumn::make('menu')->default('-')->sortable(),
+                Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
+                Tables\Columns\IconColumn::make('active')
+                ->boolean()
             ])
             ->filters([
                 //

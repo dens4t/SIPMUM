@@ -65,6 +65,11 @@ class PegawaiResource extends Resource
                     ->tabs([
                         Forms\Components\Tabs\Tab::make('Personal Info')
                             ->schema([
+                                Forms\Components\FileUpload::make('profile')
+                                    ->label('Profile')
+                                    ->directory('profile')->storeFileNamesIn('profile')
+                                    ->maxSize(10240) // Limit file size to 10MB
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png'])->openable(),
                                 Forms\Components\TextInput::make('NIP')->label('NIP')->required(),
                                 Forms\Components\TextInput::make('nama')->required(),
                                 Forms\Components\Select::make('jenis_kelamin')->label('Jenis Kelamin')->options([
@@ -124,19 +129,20 @@ class PegawaiResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('profile')->circular()->defaultImageUrl(url('storage/profile/default.jpg')),
                 Tables\Columns\TextColumn::make('nama')->label('Nama')->sortable(),
                 Tables\Columns\TextColumn::make('unit.nama_lengkap')->label('Unit')->sortable(),
                 Tables\Columns\TextColumn::make('jabatan.nama')->label('Nama Jabatan')->sortable(),
             ])
             ->filters([
                 SelectFilter::make('jabatan')->label('Jabatan')
-                ->relationship('jabatan', 'nama'),
+                    ->relationship('jabatan', 'nama'),
                 SelectFilter::make('unit')->label('Unit')
-                ->relationship('unit', 'nama'),
+                    ->relationship('unit', 'nama'),
                 SelectFilter::make('jabatan')->label('Jabatan')
-                ->relationship('jabatan', 'nama'),
+                    ->relationship('jabatan', 'nama'),
                 SelectFilter::make('pendidikan_terakhir')->label('Pendidikan Terakhir')
-                ->relationship('pendidikan_terakhir', 'jenjang'),
+                    ->relationship('pendidikan_terakhir', 'jenjang'),
             ])
             ->actions([
                 // Tables\Actions\DossierPegawaAction::make()->closeModalByClickingAway(false),

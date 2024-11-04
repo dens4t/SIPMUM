@@ -10,6 +10,9 @@ class Pegawai extends Model
     protected $table = 'pegawai';
     protected $guarded = [];
     use HasFactory;
+    protected $casts = [
+        'profile' => 'array'
+    ];
 
     public function jabatan()
     {

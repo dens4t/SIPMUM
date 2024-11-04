@@ -60,7 +60,7 @@ class PengajuanSPPDResource extends Resource
                 Tables\Columns\TextColumn::make('judul_kegiatan')->label('Judul Rapat')->sortable(),
                 Tables\Columns\TextColumn::make('tanggal_awal_kegiatan')->label('Tanggal Awal Kegiatan')->sortable(),
                 Tables\Columns\TextColumn::make('jenis_angkutan')->label('Jenis Angkutan')->sortable(),
-                Tables\Columns\TextColumn::make('kota_tujuan')->label('Tujuan Kota')->sortable(),
+                Tables\Columns\TextColumn::make('kota_tujuan.nama')->label('Tujuan Kota')->sortable(),
             ])
             ->filters([
                 SelectFilter::make('jenis_sppd')
@@ -76,8 +76,8 @@ class PengajuanSPPDResource extends Resource
                         'kendaraan_dinas' => 'Kendaraan Dinas',
                         'kendaraan_umum' => 'Kendaraan Umum',
                     ]),
-                SelectFilter::make('kota')
-                    ->relationship('kota', 'nama'),
+                SelectFilter::make('kota_tujuan')
+                    ->relationship('kota_tujuan', 'nama'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

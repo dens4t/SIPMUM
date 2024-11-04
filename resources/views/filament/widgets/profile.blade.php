@@ -1,7 +1,15 @@
 <div class="flex items-center p-6 bg-white rounded-lg shadow-md">
     <div class="flex-shrink-0">
+        <?php
+            $profile = "https://ui-avatars.com/api/?name=". auth()->user()->name ."&background=075596&color=fff";
+            if (auth()->user()->pegawai && auth()->user()->pegawai->profile){
+                $profile = auth()->user()->pegawai->profile;
+                $profile = array_values($profile)[0];
+                $profile = url('storage/' . $profile);
+            }
+        ?>
         <img
-            src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}&background=075596&color=fff"
+            src="{{ $profile }}"
             alt="Profile Avatar"
             style="width:160px;height:160px;" class="rounded-full border border-gray-300">
     </div>
