@@ -23,6 +23,12 @@ class PropertyGuestResource extends Resource
     protected static ?string $pluralModelLabel  = 'Informasi';
     protected static ?int $navigationSort = 1;
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->is_admin;
+    }
+
+
     public static function form(Form $form): Form
     {
         return $form

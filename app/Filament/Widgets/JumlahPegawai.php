@@ -16,7 +16,7 @@ class JumlahPegawai extends BaseWidget
         return [
             Stat::make('Total Pegawai', "$jumlahPegawai Orang"),
             Stat::make('Jumlah Pegawai Laki-laki', "$jumlahPegawaiLaki Orang"),
-            Stat::make('Jumlah Pegawai Perempuan', "$jumlahPegawaiPerempuan Orang"),
+            Stat::make('Jumlah Pegawai Perempuan', "$jumlahPegawaiPerempuan Orang")
         ];
     }
 }

@@ -1,0 +1,95 @@
+@media screen and (max-width: 600px) {
+    #jam {
+        display: none;
+    }
+}
+
+#jam {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    background-color: #f0f0f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Adding some animation to the time */
+#jam {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.6);
+    }
+}
+
+.clock {
+    font-size: 175px;
+    text-align: center;
+    color: #007bff;
+    /* border: 2px solid black; */
+    display: inline-block;
+    padding: 5px;
+}
+
+.calendar {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: auto;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.day-header {
+    font-weight: bold;
+    text-align: center;
+}
+
+.day {
+    padding: 6px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.day:hover {
+    background-color: #f0f0f0;
+}
+
+.not-current-month {
+    color: #ccc;
+}
+
+.calendar-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.calendar-button:hover {
+    background-color: #0056b3;
+}

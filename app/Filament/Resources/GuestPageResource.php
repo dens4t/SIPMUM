@@ -29,6 +29,12 @@ class GuestPageResource extends Resource
     protected static ?string $pluralModelLabel  = 'Siaran Pers';
     protected static ?int $navigationSort = 0;
 
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->is_admin;
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -68,7 +74,7 @@ class GuestPageResource extends Resource
                 // Tables\Columns\TextColumn::make('menu')->default('-')->sortable(),
                 Tables\Columns\TextColumn::make('title')->searchable()->sortable(),
                 Tables\Columns\IconColumn::make('active')
-                ->boolean()
+                    ->boolean()
             ])
             ->filters([
                 //
