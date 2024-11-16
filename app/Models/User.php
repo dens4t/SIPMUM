@@ -3,10 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Providers\Filament\AdminPanelProvider;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
 class User extends Authenticatable
 {
@@ -48,5 +52,13 @@ class User extends Authenticatable
     ];
     public function pegawai(){
         return $this->hasOne(Pegawai::class, 'id','id_pegawai');
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+
+        return true;
+        // if (!$this->is_admin) redirect()->to('pegawai');
+        // return true;
     }
 }

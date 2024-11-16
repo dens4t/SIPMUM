@@ -22,7 +22,7 @@ class PengajuanSPPDResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
     protected static ?string $navigationGroup = 'Permohonan';
-    protected static ?string $pluralModelLabel  = 'Pengajuan SPPD';
+    protected static ?string $pluralModelLabel  = 'SPPD';
 
     public static function form(Form $form): Form
     {
@@ -47,21 +47,27 @@ class PengajuanSPPDResource extends Resource
                 ])->required(),
                 Forms\Components\Select::make('id_kota_asal')->label('Asal Kota Keberangkatan')->searchable()->options(Kota::all()->pluck('nama', 'id'))->required(),
                 Forms\Components\Select::make('id_kota_tujuan')->label('Tujuan Kota Keberangkatan')->searchable()->options(Kota::all()->pluck('nama', 'id'))->required(),
-                Forms\Components\TextInput::make('surat_undangan_penugasan')->label('Link Surat Undangan / Surat Penugasan')->required(),
+                // Forms\Components\TextInput::make('surat_undangan_penugasan')->label('Link Surat Undangan / Surat Penugasan')->required(),
+                Forms\Components\FileUpload::make('surat_undangan_penugasan')
+                    ->label('Link Surat Undangan / Surat Penugasan')
+                    ->directory('dokumen_pegawai')->storeFileNamesIn('surat_undangan_penugasan')
+                    ->maxSize(10240) // Limit file size to 10MB
+                    ->acceptedFileTypes(['application/pdf'])->openable()->previewable(false)->nullable()->columnSpanFull(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
+        $columns = [
+            Tables\Columns\TextColumn::make('jenis_sppd')->label('Jenis')->sortable(),
+            Tables\Columns\TextColumn::make('judul_kegiatan')->label('Judul Rapat')->sortable(),
+            Tables\Columns\TextColumn::make('tanggal_awal_kegiatan')->label('Tanggal Awal Kegiatan')->sortable(),
+            Tables\Columns\TextColumn::make('jenis_angkutan')->label('Jenis Angkutan')->sortable(),
+            Tables\Columns\TextColumn::make('kota_tujuan.nama')->label('Tujuan Kota')->sortable(),
+        ];
+        if (auth()->user()->is_admin) array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon'));
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon'),
-                Tables\Columns\TextColumn::make('jenis_sppd')->label('Jenis')->sortable(),
-                Tables\Columns\TextColumn::make('judul_kegiatan')->label('Judul Rapat')->sortable(),
-                Tables\Columns\TextColumn::make('tanggal_awal_kegiatan')->label('Tanggal Awal Kegiatan')->sortable(),
-                Tables\Columns\TextColumn::make('jenis_angkutan')->label('Jenis Angkutan')->sortable(),
-                Tables\Columns\TextColumn::make('kota_tujuan.nama')->label('Tujuan Kota')->sortable(),
-            ])
+            ->columns($columns)
             ->filters([
                 SelectFilter::make('jenis_sppd')
                     ->options([
@@ -87,7 +93,10 @@ class PengajuanSPPDResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->modifyQueryUsing(function (Builder $query) {
+                if (!auth()->user()->is_admin) return $query->where('id_pegawai', auth()->user()->id_pegawai);
+            });
     }
 
     public static function getPages(): array

@@ -23,9 +23,15 @@ class FilamentServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // FilamentAsset::register([
-        //     Css::make('custom-stylesheet', 'https://unpkg.com/aos@2.3.1/dist/aos.css'),
-        //     Js::make('custom-stylesheet', 'https://unpkg.com/aos@2.3.1/dist/aos.js'),
-        // ]);
+        Filament::serving(function () {
+            if (auth()->check()) {
+                // Check the user's role and apply the appropriate panel
+                if (auth()->user()->is_admin) {
+                    Filament::panel('admin');
+                } else {
+                    Filament::panel('user');
+                }
+            }
+        });
     }
 }

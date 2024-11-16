@@ -39,10 +39,11 @@ class UnitResource extends Resource
     {
         return $form
             ->schema([
+                //'ulpltd','up','ulpltg/d'
                 Forms\Components\Select::make('jenis')->options([
-                    'upltg' => 'UPLTG',
-                    'upltd' => 'UPLTD',
-                    'updk' => 'UPDK',
+                    'ulpltg/d' => 'ULPLTG/D',
+                    'ulpltd' => 'ULPLTD',
+                    'up' => 'UP',
                 ])->required(),
                 Forms\Components\TextInput::make('nama')->required(),
                 //

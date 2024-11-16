@@ -24,6 +24,13 @@ class NomorSuratResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static ?string $navigationGroup = 'Permohonan';
+
+    // protected static function getNavigationBadgeColor(): ?string
+    // {
+    //     return static::getModel()::count() > 10 ? 'warning' : 'primary';
+    // }
+
+
     protected static ?string $pluralModelLabel  = 'Nomor Surat';
 
     public static function form(Form $form): Form
@@ -51,11 +58,12 @@ class NomorSuratResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $columns = [
+            Tables\Columns\TextColumn::make('perihal')->label('Perihal')->sortable(),
+        ];
+        if (auth()->user()->is_admin) array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama')->label('Nama Pegawai')->sortable());
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('pegawai.nama')->label('Nama Pegawai')->sortable(),
-                Tables\Columns\TextColumn::make('perihal')->label('Perihal')->sortable(),
-            ])
+            ->columns($columns)
             ->filters(
                 [
                     SelectFilter::make('pegawai')->searchable()->label('Pegawai')
@@ -98,9 +106,7 @@ class NomorSuratResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
-                // dd(auth()->user()->id_pegawai);
                 if (!auth()->user()->is_admin) return $query->where('id_pegawai', auth()->user()->id_pegawai);
-                // dd()
             })
 
         ;

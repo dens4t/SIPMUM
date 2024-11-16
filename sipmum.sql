@@ -341,7 +341,7 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
 -- Dumping structure for table sipmum.unit
 CREATE TABLE IF NOT EXISTS `unit` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `jenis` enum('upltd','updk','upltg') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `jenis` enum('ulpltd','up','ulpltg/d') COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,

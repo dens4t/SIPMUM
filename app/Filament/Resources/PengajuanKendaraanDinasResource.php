@@ -23,7 +23,7 @@ class PengajuanKendaraanDinasResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
     protected static ?string $navigationGroup = 'Permohonan';
-    protected static ?string $pluralModelLabel  = 'Pengajuan Kendaraan Dinas';
+    protected static ?string $pluralModelLabel  = 'Kendaraan Dinas';
 
     public static function form(Form $form): Form
     {
@@ -43,15 +43,16 @@ class PengajuanKendaraanDinasResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                //
-                Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon')->sortable(),
-                Tables\Columns\TextColumn::make('tanggal_peminjaman')->label('Tgl Peminjaman')->sortable(),
-                Tables\Columns\TextColumn::make('tanggal_pengembalian')->label('Tgl Pengembalian')->sortable(),
-                Tables\Columns\TextColumn::make('keperluan')->label('Keperluan')->sortable(),
+        $columns = [
+            //
+            Tables\Columns\TextColumn::make('tanggal_peminjaman')->label('Tgl Peminjaman')->sortable(),
+            Tables\Columns\TextColumn::make('tanggal_pengembalian')->label('Tgl Pengembalian')->sortable(),
+            Tables\Columns\TextColumn::make('keperluan')->label('Keperluan')->sortable(),
 
-            ])
+        ];
+        if (auth()->user()->is_admin) array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon')->sortable());
+        return $table
+            ->columns($columns)
             ->filters([
                 SelectFilter::make('pegawai')->searchable()->label('Pegawai')
                     ->relationship('pegawai', 'nama'),
@@ -69,7 +70,10 @@ class PengajuanKendaraanDinasResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->modifyQueryUsing(function (Builder $query) {
+                if (!auth()->user()->is_admin) return $query->where('id_pegawai', auth()->user()->id_pegawai);
+            });
     }
 
     public static function getPages(): array

@@ -15,6 +15,7 @@ use App\Filament\Widgets\JenjangPegawai;
 use App\Filament\Widgets\JumlahPegawai;
 use App\Filament\Widgets\Kalender;
 use App\Filament\Widgets\Profile;
+use App\Http\Middleware\RedirectIfPegawai;
 use Filament\FontProviders\GoogleFontProvider;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -48,7 +49,6 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Profile::class,
                 Kalender::class,
@@ -69,19 +69,17 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Inter', provider: GoogleFontProvider::class)
             ->authMiddleware([
-                Authenticate::class,
+                RedirectIfPegawai::class,
             ])
-            // ->topNavigation()
-            // ->sidebarCollapsibleOnDesktop()
-            ->authMiddleware([
-                Authenticate::class,
-            ])->maxContentWidth(MaxWidth::Full)
+            ->maxContentWidth(MaxWidth::Full)
             ->unsavedChangesAlerts()
             ->brandLogo(asset('storage/logo.png'))
             ->brandLogoHeight('3rem')
             ->brandName('SI P-MUM')
             // ->breadcrumbs(true)
             // ->topbar(false)
+            ->profile()
+            ->passwordReset()
             ->spa();
     }
 }

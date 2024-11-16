@@ -51,8 +51,8 @@
 .navbar{
     background-color: #fff;
     background-image:url(../assets/img/naruto20.png);
-    background-size: cover;
-    background-position: -405px center;
+    background-size: 1500px 100px;
+    background-position: -100px center;
     background-repeat: no-repeat;
 }
 

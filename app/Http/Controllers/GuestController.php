@@ -9,6 +9,7 @@ use App\Models\PengajuanRapatKonsumsi;
 use App\Models\PengajuanSPPD;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Yajra\DataTables\DataTables;
 
@@ -31,7 +32,7 @@ class GuestController extends Controller
         $popular = $data->take(-3);
 
         $post = GuestPage::where('slug', $slug)->firstOrFail();
-        return view('guest.siaran_pers-detail', compact('data','popular','post'));
+        return view('guest.siaran_pers-detail', compact('data', 'popular', 'post'));
     }
 
     public function berita()
@@ -52,7 +53,7 @@ class GuestController extends Controller
 
     public function datatable_pengajuan_sppd(Request $request)
     {
-        $query = PengajuanSPPD::with('pegawai','kota_tujuan','kota_asal'); // Assuming you want to join with pegawai
+        $query = PengajuanSPPD::with('pegawai', 'kota_tujuan', 'kota_asal'); // Assuming you want to join with pegawai
         return DataTables::of($query)
             ->make(true);
     }
@@ -105,6 +106,35 @@ class GuestController extends Controller
         $unit = Unit::where('nama', $unit)->firstOrFail();
         if ($unit->page_unit == null) return abort(404);
         return view('guest.unit', compact('unit'));
+    }
+    public function login()
+    {
+        if (!auth()->user()) return view('guest.login');
+        if (auth()->user()->is_admin) return redirect()->to('/admin');
+        if (!auth()->user()->is_admin) return redirect()->to('/pegawai');
+    }
+    public function login_proses(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        $credentials = [
+            'username' => $request->input('username'),
+            'password' => $request->input('password'),
+        ];
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            // Redirect to intended or a specific page after login
+            return redirect()->intended('/admin');
+        }
+
+        return back()->withErrors([
+            'login' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     public function siaran_pers()

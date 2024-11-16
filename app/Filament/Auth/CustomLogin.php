@@ -2,11 +2,12 @@
 
 namespace App\Filament\Auth;
 
+use App\Http\Responses\LoginResponse as LoginResponse;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Filament\Http\Responses\Auth\Contracts\LoginResponse;
+// use Filament\Http\Responses\Auth\LoginResponse;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Pages\Auth\Login;
 use Illuminate\Support\Facades\Auth;
@@ -48,13 +49,12 @@ class CustomLogin extends Login
     }
     public function authenticate(): ?LoginResponse
     {
-        try {
-            $this->rateLimit(5);
-        } catch (TooManyRequestsException $exception) {
-            $this->getRateLimitedNotification($exception)?->send();
-
-            return null;
-        }
+        // try {
+        //     $this->rateLimit(5);
+        // } catch (TooManyRequestsException $exception) {
+        //     $this->getRateLimitedNotification($exception)?->send();
+        //     return null;
+        // }
 
         $data = $this->form->getState();
 
@@ -74,6 +74,7 @@ class CustomLogin extends Login
         }
         $lastLoginUpdate = auth()->user()->update(['last_login_at' => now()]);
         session()->regenerate();
+
 
         return app(LoginResponse::class);
     }

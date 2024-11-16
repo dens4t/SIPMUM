@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('unit', function (Blueprint $table) {
             $table->id();
-            $table->enum('jenis', array('upltd','updk','upltg'));
+            $table->enum('jenis', array('ulpltd','up','ulpltg/d'));
             $table->string('nama');
             $table->timestamps();
         });

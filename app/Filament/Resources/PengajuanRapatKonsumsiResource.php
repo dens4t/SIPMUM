@@ -23,7 +23,7 @@ class PengajuanRapatKonsumsiResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationGroup = 'Permohonan';
-    protected static ?string $pluralModelLabel  = 'Pengajuan Rapat Konsumsi';
+    protected static ?string $pluralModelLabel  = 'Rapat Konsumsi';
 
     public static function form(Form $form): Form
     {
@@ -54,15 +54,15 @@ class PengajuanRapatKonsumsiResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $columns = [
+            Tables\Columns\TextColumn::make('judul_rapat')->label('Judul Rapat')->sortable(),
+            Tables\Columns\TextColumn::make('tanggal_waktu_mulai')->label('Tanggal dan Waktu Mulai')->sortable(),
+            Tables\Columns\TextColumn::make('ruang')->label('Lokasi Rapat')->sortable(),
+            Tables\Columns\TextColumn::make('metode')->label('Metode Rapat')->sortable(),
+        ];
+        if (auth()->user()->is_admin) array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon')->sortable());
         return $table
-            ->columns([
-
-                Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon')->sortable(),
-                Tables\Columns\TextColumn::make('judul_rapat')->label('Judul Rapat')->sortable(),
-                Tables\Columns\TextColumn::make('tanggal_waktu_mulai')->label('Tanggal dan Waktu Mulai')->sortable(),
-                Tables\Columns\TextColumn::make('ruang')->label('Lokasi Rapat')->sortable(),
-                Tables\Columns\TextColumn::make('metode')->label('Metode Rapat')->sortable(),
-            ])
+            ->columns($columns)
             ->filters([
                 Filter::make('tanggal_waktu_mulai')
                     ->form([
@@ -102,7 +102,10 @@ class PengajuanRapatKonsumsiResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->modifyQueryUsing(function (Builder $query) {
+                if (!auth()->user()->is_admin) return $query->where('id_pegawai', auth()->user()->id_pegawai);
+            });
     }
 
     public static function getPages(): array

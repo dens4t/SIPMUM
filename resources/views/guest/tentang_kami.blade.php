@@ -140,44 +140,5 @@
         </div>
 
         <!-- Contact-->
-        <!-- Footer-->
-        <section class="page-section">
-            <div class="row justify-content-center">
-                <div class="col-lg-4 px-lg-5">
-                    <p>Sehubungan dengan Keputusan Direksi PT PLN Nusantara Power di Luar Rapat Direksi (Sirkuler) Nomor 046/DIR/2023 tanggal 27 November 2023 tentang Perubahan Organisasi Unit PT PLN Nusantara Power Tahun 2023. Berdasarkan surat Legal dan Manajemen Human Capital PT PLN (Persero) Nomor 0030/ORG.00.02/F01080000/2024-R tanggal 2 Januari 2024 tentang Persetujuan Perubahan Struktur Organisasi dan Position Grade Unit Pembangkitan PT PLN Nusantara Power.</p>
-                </div>
-                <div class="col-lg-2">
-                    <div class="row ">
-                        <div class="col-lg-12">
-                            <h4> <i class="bi bi-geo-alt-fill"></i> Alamat</h4>
-                            <p class="text-muted">Jl. Adi Sucipto No.2, Sungai Raya, Kec. Sungai Raya, Kabupaten Kubu Raya, Kalimantan Barat 78117</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h4><i class="bi bi-stopwatch-fill"></i>Jam Kerja</h4>
-                            <p>Senin s/d Jumat<br>
-                            <span class="text-muted"> 07:30 sd 16:00 WIB</span></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <h4><i class="bi bi-person-lines-fill"></i>Kontak</h4>
-                    <p><i class="bi bi-telephone-fill"></i>Phone<br>
-                        <span class="text-muted">(0561) 723472 ext. 723449</span></p>
-                    <p><i class="bi bi-envelope-fill"></i>Email<br>
-                        <span class="text-muted">lorem@mail.com</span></p>
-                </div>
-                <div class="col-lg-2">
-                    <h4><i class="bi bi-pin-map"></i>Kantor Pusat</h4>
-                    <h4>PT PLN Nusantara Power Kantor Pusat</h4>
-                    <p class="text-muted">, Jl. Ketintang Baru No. 11,
-                    Surabaya, Indonesia</p>
-                    <h4>Kantor Strategis</h4>
-                    <p class="text-muted">PT PLN Nusantara Power Office Strategis, 18 Office Park, Lt.2 ABCD
-                    Jl. TB Simatupang No.18 Jakarta Selatan, DKI Jakarta Indonesia</p>
-                </div>
-            </div>
-</section>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 @endsection

@@ -1,10 +1,74 @@
 <!-- Footer-->
+
+<section class="page-section" data-aos="fade-up" style="background-image:none;background-color:white;">
+    <div class="row justify-content-center">
+        <div class="col-lg-4 px-lg-5" style="text-align:justify;">
+            <p>Sehubungan dengan Keputusan Direksi PT PLN Nusantara Power di Luar Rapat Direksi (Sirkuler) Nomor 046/DIR/2023 tanggal 27 November 2023 tentang Perubahan Organisasi Unit PT PLN Nusantara Power Tahun 2023. Berdasarkan surat Legal dan Manajemen Human Capital PT PLN (Persero) Nomor 0030/ORG.00.02/F01080000/2024-R tanggal 2 Januari 2024 tentang Persetujuan Perubahan Struktur Organisasi dan Position Grade Unit Pembangkitan PT PLN Nusantara Power.</p>
+        </div>
+        <div class="col-lg-2">
+            <div class="row ">
+                <div class="col-lg-12">
+                    <h4> <i class="bi bi-geo-alt-fill"></i> Alamat</h4>
+                    <p class="text-muted">Jl. Adi Sucipto No.2, Sungai Raya, Kec. Sungai Raya, Kabupaten Kubu Raya, Kalimantan Barat 78117</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4><i class="bi bi-stopwatch-fill"></i> Jam Kerja</h4>
+                    <p>Senin s/d Jumat<br>
+                        <span class="text-muted"> 07:30 sd 16:00 WIB</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <h4><i class="bi bi-person-lines-fill"></i> Kontak</h4>
+            <p><i class="bi bi-telephone-fill"></i>Phone<br>
+                <span class="text-muted">(0561) 723472 ext. 723449</span>
+            </p>
+            <p><i class="bi bi-envelope-fill"></i> Email<br>
+                <span class="text-muted"> ptplnnpupks@gmail.com</span>
+            </p>
+        </div>
+        <div class="col-lg-2">
+            <h4><i class="bi bi-pin-map"> </i>Kantor Pusat</h4>
+            <h4>PT PLN Nusantara Power Kantor Pusat</h4>
+            <p class="text-muted">Jl. Ketintang Baru No. 11,
+                Surabaya, Indonesia</p>
+            <h4>Kantor Strategis</h4>
+            <p class="text-muted">PT PLN Nusantara Power Office Strategis, 18 Office Park, Lt.2 ABCD
+                Jl. TB Simatupang No.18 Jakarta Selatan, DKI Jakarta Indonesia</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    const loadTime = () => {
+        var tw = new Date();
+        if (tw.getTimezoneOffset() == 0)(a = tw.getTime() + (7 * 60 * 60 * 1000))
+        else(a = tw.getTime());
+        tw.setTime(a);
+        var tahun = tw.getFullYear();
+        var hari = tw.getDay();
+        var bulan = tw.getMonth();
+        var tanggal = tw.getDate();
+        var hariarray = new Array("Minggu,", "Senin,", "Selasa,", "Rabu,", "Kamis,", "Jum'at,", "Sabtu,");
+        var bulanarray = new Array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "Nopember", "Desember");
+        console.log(hariarray[hari] + " " + tanggal + " " + bulanarray[bulan] + " " + tahun + " Jam " + ((tw.getHours() < 10) ? "0" : "") + tw.getHours() + ":" + ((tw.getMinutes() < 10) ? "0" : "") + tw.getMinutes() + (" W.I.B "));
+        // document.getElementById("tanggalwaktu").innerHTML = hariarray[hari] + " " + tanggal + " " + bulanarray[bulan] + " " + tahun + " Jam " + ((tw.getHours() < 10) ? "0" : "") + tw.getHours() + ":" + ((tw.getMinutes() < 10) ? "0" : "") + tw.getMinutes() + ":" + ((tw.getSeconds() < 10) ? "0" : "") + tw.getSeconds() + (" W.I.B ");
+        document.getElementById("tanggalwaktu").innerHTML = hariarray[hari] + " " + tanggal + " " + bulanarray[bulan] + " " + tahun ;
+    }
+    loadTime();
+    setInterval(() => {
+        loadTime();
+    }, 1000);
+</script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script src="//cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <footer class="bg-light py-5">
     <div class="container px-4 px-lg-5">
-        <div class="small text-center text-muted">Copyright &copy; 2023 - PLN</div>
+        <div class="small text-center text-muted">Copyright &copy; 2024 - PLN</div>
     </div>
 </footer>
 <!-- Bootstrap core JS-->
@@ -80,8 +144,7 @@
             processing: true,
             serverSide: true,
             ajax: '{{ url("permohonan/pengajuan-kendaraan-dinas") }}',
-            columns: [
-                {
+            columns: [{
                     data: 'pegawai.nama',
                     name: 'pegawai.nama'
                 },
@@ -111,8 +174,7 @@
             processing: true,
             serverSide: true,
             ajax: '{{ url("permohonan/pengajuan-rapat-konsumsi") }}',
-            columns: [
-                {
+            columns: [{
                     data: 'pegawai.nama',
                     name: 'pegawai.nama'
                 },

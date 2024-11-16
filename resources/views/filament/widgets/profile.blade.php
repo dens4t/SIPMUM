@@ -1,5 +1,5 @@
-<div class="flex items-center p-6 bg-white rounded-lg shadow-md">
-    <div class="flex-shrink-0">
+<div class="fi-section-content-ctn flex items-center p-6 bg-white rounded-lg shadow-md">
+    <div class="flex-shrink-0 fi-section-content-ctn">
         <?php
         $profile = "https://ui-avatars.com/api/?name=" . auth()->user()->name . "&background=075596&color=fff";
         if (auth()->user()->pegawai && auth()->user()->pegawai->profile) {
@@ -13,7 +13,7 @@
             alt="Profile Avatar"
             style="width:160px;height:160px;" class="rounded-full border border-gray-300">
     </div>
-    <div class="ml-4" style="margin-left:20px;" data-aos="zoom-in-up">
+    <div class="ml-4 fi-section-content-ctn" style="margin-left:20px;" data-aos="zoom-in-up">
         <h2 class="text-xl font-semibold text-black text-underline">{{ auth()->user()->name }}</h2>
         <div class="mt-2">
             <p style="color:grey;">NIP: <span style="color:black">{!! auth()->user()->pegawai->NIP ?? '<span style="font-style:italic;color:grey">Belum Disesuaikan</span>' !!}</span></p>

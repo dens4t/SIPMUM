@@ -36,6 +36,8 @@ Route::get('/unit/{unit}', [GuestController::class, 'unit_get']);
 Route::get('/siaran-pers', [GuestController::class, 'siaran_pers']);
 Route::get('/siaran-pers', [GuestController::class, 'siaran_pers']);
 Route::get('/siaran-pers/{slug}', [GuestController::class, 'siaran_pers_page']);
+Route::get('/guest/login', [GuestController::class, 'login']);
+Route::post('/guest/login', [GuestController::class, 'login_proses']);
 Route::get('/kontak', [GuestController::class, 'kontak']);
 
 Route::get('/login', function () {

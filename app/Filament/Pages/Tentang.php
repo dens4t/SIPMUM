@@ -29,9 +29,7 @@ class Tentang extends Page implements HasForms
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     protected static string $view = 'filament.pages.tentang';
-    protected static ?string $title = 'Profil Pegawai';
-
-
+    protected static ?string $title = 'Profil Saya';
 
 
     public Pegawai $pegawai;

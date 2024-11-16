@@ -19,12 +19,16 @@
             <span><i class="bi bi-envelope-fill"></i> ptplnnpupks@gmail.com</span>
             <span><i class="bi bi-geo-alt-fill"></i> Jl. Adi Sucipto No.2</span>
         </div>
-        <div class="col-lg-3 d-flex justify-content-end align-items-center text-white" style="font-family:Arial, Helvetica, sans-serif; font-size: 10px;">
+
+        <div class="col-lg-3 d-flex justify-content-end align-items-center text-white" style="font-family:Arial, Helvetica, sans-serif; font-size: 12px;">
+            <div style="margin-right: 10px;">
+                <i class="bi bi-calendar-event"></i> <span id="tanggalwaktu"></span>
+            </div>
             <form class="d-flex" action="{{ url('siaran-pers') }}" method="get" role="search">
                 <input class="me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="myBtn" type="submit"><i class="bi bi-search"></i></button>
             </form>
-            <a class="nav-link ms-3 myBtna" href="{{ url('admin') }}">Login</a>
+            <a class="nav-link ms-3 myBtna" href="{{ url('guest/login') }}">Login</a>
         </div>
     </div>
 </section>
@@ -52,9 +56,9 @@
                     </a>
                     <ul class="dropdown-menu animate slideIn" style="border: 0 !important; border-radius: 0; font-family:Arial, Helvetica, sans-serif;">
                         <!-- <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">ULPLTD/G Siantan</a></li>
-                        <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">UPLTD SEI RAYA</a></li>
-                        <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">UPLTD SANGGAU</a></li>
-                        <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">UPTLD KETAPANG</a></li> -->
+                        <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">ULPLTD SEI RAYA</a></li>
+                        <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">ULPLTD SANGGAU</a></li>
+                        <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit') }}">ULPTLD KETAPANG</a></li> -->
                         @foreach ($units as $unit)
                         <li><a class="dropdown-item fw-bolder text-muted" href="{{ url('unit', $unit->nama) }}">{{$unit->nama_lengkap}}</a></li>
                         @endforeach
@@ -71,7 +75,7 @@
                 </li>
             </ul>
         </div>
-        <a class="navbar-brand" href="#page-top"><img src="./assets/img/Logo-PLN.png" alt="PLN Nusantara" class="lytzd-logo"></a>
+        <a class="navbar-brand" href="#page-top"><img style="background-color: white" src="{{ url('/storage/logo.png')}}" alt="PLN Nusantara" class="lytzd-logo"></a>
         <button class="navbar-toggler navbar-toggler-left" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     </div>
 </nav>
