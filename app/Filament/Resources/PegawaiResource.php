@@ -30,13 +30,13 @@ class PegawaiResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationGroup = 'Instansi';
-    protected static ?string $pluralModelLabel  = 'Pegawai';
+    protected static ?string $pluralModelLabel = 'Pegawai';
     protected static ?int $navigationSort = 0;
 
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->is_admin;
+        return auth()->user() && auth()->user()->is_admin;
     }
 
     // protected function mutateFormDataBeforeFill(array $data): array
@@ -152,7 +152,8 @@ class PegawaiResource extends Resource
                 Tables\Actions\Action::make('updateDossier')->label('Dossier Pegawai')->slideOver()->icon('heroicon-m-circle-stack')
                     // ->model(DossierPegawai::class)
                     ->fillForm(function (Pegawai $record) {
-                        if (!$record->dossier_pegawai) return;
+                        if (!$record->dossier_pegawai)
+                            return;
                         return [
                             'sk_pengangkatan' => $record->dossier_pegawai->sk_pengangkatan,
                             'sk_talenta' => $record->dossier_pegawai->sk_talenta,

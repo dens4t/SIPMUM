@@ -19,12 +19,12 @@ class KendaraanResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-long-right';
     protected static ?string $navigationGroup = 'Lainnya';
-    protected static ?string $pluralModelLabel  = 'Kendaraan';
+    protected static ?string $pluralModelLabel = 'Kendaraan';
     protected static ?int $navigationSort = 2;
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->is_admin;
+        return auth()->user() && auth()->user()->is_admin;
     }
 
     public static function form(Form $form): Form

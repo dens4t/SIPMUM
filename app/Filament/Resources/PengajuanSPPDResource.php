@@ -22,7 +22,7 @@ class PengajuanSPPDResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
     protected static ?string $navigationGroup = 'Permohonan';
-    protected static ?string $pluralModelLabel  = 'SPPD';
+    protected static ?string $pluralModelLabel = 'SPPD';
 
     public static function form(Form $form): Form
     {
@@ -65,7 +65,8 @@ class PengajuanSPPDResource extends Resource
             Tables\Columns\TextColumn::make('jenis_angkutan')->label('Jenis Angkutan')->sortable(),
             Tables\Columns\TextColumn::make('kota_tujuan.nama')->label('Tujuan Kota')->sortable(),
         ];
-        if (auth()->user()->is_admin) array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon'));
+        if (auth()->user()->is_admin)
+            array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon'));
         return $table
             ->columns($columns)
             ->filters([
@@ -95,8 +96,14 @@ class PengajuanSPPDResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
-                if (!auth()->user()->is_admin) return $query->where('id_pegawai', auth()->user()->id_pegawai);
+                if (!auth()->user()->is_admin)
+                    return $query->where('id_pegawai', auth()->user()->id_pegawai);
             });
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user() && auth()->user()->is_admin;
     }
 
     public static function getPages(): array

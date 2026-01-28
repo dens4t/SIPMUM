@@ -22,11 +22,11 @@ class KegiatanResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Permohonan';
-    protected static ?string $pluralModelLabel  = 'Kegiatan';
+    protected static ?string $pluralModelLabel = 'Kegiatan';
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->is_admin;
+        return auth()->user() && auth()->user()->is_admin;
     }
 
     public static function form(Form $form): Form
@@ -52,21 +52,21 @@ class KegiatanResource extends Resource
             ])
             ->filters([
                 Filter::make('created_at')
-                        ->form([
-                            DatePicker::make('created_from')->label('Kegiatan dimulai tanggal'),
-                            DatePicker::make('created_until')->label('Hingga tanggal'),
-                        ])
-                        ->query(function (Builder $query, array $data): Builder {
-                            return $query
-                                ->when(
-                                    $data['created_from'],
-                                    fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
-                                )
-                                ->when(
-                                    $data['created_until'],
-                                    fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
-                                );
-                        }),
+                    ->form([
+                        DatePicker::make('created_from')->label('Kegiatan dimulai tanggal'),
+                        DatePicker::make('created_until')->label('Hingga tanggal'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

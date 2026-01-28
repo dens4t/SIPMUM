@@ -36,7 +36,7 @@ class Tentang extends Page implements HasForms
 
     public static function canAccess(): bool
     {
-        return !auth()->user()->is_admin;
+        return auth()->user() && !auth()->user()->is_admin;
     }
 
     public function mount(Pegawai $record)
@@ -187,11 +187,11 @@ class Tentang extends Page implements HasForms
         try {
             $data = $this->form->getState();
             $pegawai = $this->pegawai->update($data);
-            if ($pegawai){
+            if ($pegawai) {
                 Notification::make()
-                            ->title('Berhasil menyimpan data diri')
-                            ->success()
-                            ->send();
+                    ->title('Berhasil menyimpan data diri')
+                    ->success()
+                    ->send();
 
                 redirect('admin/tentang');
 

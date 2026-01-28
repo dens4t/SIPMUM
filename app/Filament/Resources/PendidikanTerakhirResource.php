@@ -20,12 +20,12 @@ class PendidikanTerakhirResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
     protected static ?string $navigationGroup = 'Lainnya';
-    protected static ?string $pluralModelLabel  = 'Pendidikan Terakhir';
+    protected static ?string $pluralModelLabel = 'Pendidikan Terakhir';
     protected static ?int $navigationSort = 0;
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->is_admin;
+        return auth()->user() && auth()->user()->is_admin;
     }
     public static function form(Form $form): Form
     {

@@ -19,12 +19,12 @@ class JabatanResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
     protected static ?string $navigationGroup = 'Instansi';
-    protected static ?string $pluralModelLabel  = 'Jabatan';
+    protected static ?string $pluralModelLabel = 'Jabatan';
     protected static ?int $navigationSort = 3;
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->is_admin;
+        return auth()->user() && auth()->user()->is_admin;
     }
     public static function form(Form $form): Form
     {

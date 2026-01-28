@@ -27,12 +27,12 @@ class UnitResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
     protected static ?string $navigationGroup = 'Instansi';
-    protected static ?string $pluralModelLabel  = 'Unit';
+    protected static ?string $pluralModelLabel = 'Unit';
     protected static ?int $navigationSort = 1;
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->is_admin;
+        return auth()->user() && auth()->user()->is_admin;
     }
 
     public static function form(Form $form): Form
@@ -60,7 +60,7 @@ class UnitResource extends Resource
                     return Str::upper($record->jenis) . " " . $record->nama;
                 })->sortable(),
                 Tables\Columns\IconColumn::make('page_unit')->label('Ketersediaan Halaman')
-                ->boolean()
+                    ->boolean()
                 //
             ])
             ->filters([

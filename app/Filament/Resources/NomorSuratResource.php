@@ -31,14 +31,19 @@ class NomorSuratResource extends Resource
     // }
 
 
-    protected static ?string $pluralModelLabel  = 'Nomor Surat';
+    protected static ?string $pluralModelLabel = 'Nomor Surat';
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user() && auth()->user()->is_admin;
+    }
 
     public static function form(Form $form): Form
     {
         // dd(auth()->user()->id_pegawai == auth()->user()->id_pegawai);
         return $form
             ->schema([
-                // Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required(),
+                    // Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required(),
                 (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->id_pegawai) : Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required()),
                 Forms\Components\Select::make('kode_surat')->options([
                     'SKT' => 'Surat Keterangan (Keterangan Kerja, Keterangan Selesai Praktek Industri, dll)',
@@ -61,7 +66,8 @@ class NomorSuratResource extends Resource
         $columns = [
             Tables\Columns\TextColumn::make('perihal')->label('Perihal')->sortable(),
         ];
-        if (auth()->user()->is_admin) array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama')->label('Nama Pegawai')->sortable());
+        if (auth()->user()->is_admin)
+            array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama')->label('Nama Pegawai')->sortable());
         return $table
             ->columns($columns)
             ->filters(
@@ -106,7 +112,8 @@ class NomorSuratResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
-                if (!auth()->user()->is_admin) return $query->where('id_pegawai', auth()->user()->id_pegawai);
+                if (!auth()->user()->is_admin)
+                    return $query->where('id_pegawai', auth()->user()->id_pegawai);
             })
 
         ;

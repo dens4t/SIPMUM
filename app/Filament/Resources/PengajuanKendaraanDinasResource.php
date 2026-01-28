@@ -23,7 +23,7 @@ class PengajuanKendaraanDinasResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
     protected static ?string $navigationGroup = 'Permohonan';
-    protected static ?string $pluralModelLabel  = 'Kendaraan Dinas';
+    protected static ?string $pluralModelLabel = 'Kendaraan Dinas';
 
     public static function form(Form $form): Form
     {
@@ -50,7 +50,8 @@ class PengajuanKendaraanDinasResource extends Resource
             Tables\Columns\TextColumn::make('keperluan')->label('Keperluan')->sortable(),
 
         ];
-        if (auth()->user()->is_admin) array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon')->sortable());
+        if (auth()->user()->is_admin)
+            array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon')->sortable());
         return $table
             ->columns($columns)
             ->filters([
@@ -72,8 +73,14 @@ class PengajuanKendaraanDinasResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
-                if (!auth()->user()->is_admin) return $query->where('id_pegawai', auth()->user()->id_pegawai);
+                if (!auth()->user()->is_admin)
+                    return $query->where('id_pegawai', auth()->user()->id_pegawai);
             });
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user() && auth()->user()->is_admin;
     }
 
     public static function getPages(): array

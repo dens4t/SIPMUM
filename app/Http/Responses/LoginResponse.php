@@ -11,7 +11,8 @@ class LoginResponse extends \Filament\Http\Responses\Auth\LoginResponse
     public function toResponse($request): RedirectResponse|Redirector
     {
         // Here, you can define which resource and which page you want to redirect to
-        if (auth()->user()->is_admin) return redirect()->to('admin');
+        if (auth()->user() && auth()->user()->is_admin)
+            return redirect()->to('admin');
         return redirect()->to('pegawai');
     }
 }

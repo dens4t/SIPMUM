@@ -21,12 +21,12 @@ class BagianResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
     protected static ?string $navigationGroup = 'Instansi';
-    protected static ?string $pluralModelLabel  = 'Bagian';
+    protected static ?string $pluralModelLabel = 'Bagian';
     protected static ?int $navigationSort = 2;
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->is_admin;
+        return auth()->user() && auth()->user()->is_admin;
     }
     public static function form(Form $form): Form
     {
@@ -34,8 +34,8 @@ class BagianResource extends Resource
             ->schema([
                 //
                 Forms\Components\Select::make('jenis')->options([
-                    'bagian'=>'Bagian',
-                    'seksi'=>'Seksi',
+                    'bagian' => 'Bagian',
+                    'seksi' => 'Seksi',
                 ])->default('bagian'),
                 Forms\Components\TextInput::make('nama')->required(),
             ]);
@@ -46,7 +46,7 @@ class BagianResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('nama')->label('Nama')->state(function (Model $record): string {
-                    return Str::ucfirst($record->jenis) . " " .$record->nama;
+                    return Str::ucfirst($record->jenis) . " " . $record->nama;
                 })->sortable(),
             ])
             ->filters([

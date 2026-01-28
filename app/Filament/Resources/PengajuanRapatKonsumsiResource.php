@@ -23,7 +23,7 @@ class PengajuanRapatKonsumsiResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationGroup = 'Permohonan';
-    protected static ?string $pluralModelLabel  = 'Rapat Konsumsi';
+    protected static ?string $pluralModelLabel = 'Rapat Konsumsi';
 
     public static function form(Form $form): Form
     {
@@ -60,7 +60,8 @@ class PengajuanRapatKonsumsiResource extends Resource
             Tables\Columns\TextColumn::make('ruang')->label('Lokasi Rapat')->sortable(),
             Tables\Columns\TextColumn::make('metode')->label('Metode Rapat')->sortable(),
         ];
-        if (auth()->user()->is_admin) array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon')->sortable());
+        if (auth()->user()->is_admin)
+            array_unshift($columns, Tables\Columns\TextColumn::make('pegawai.nama_unit')->label('Pemohon')->sortable());
         return $table
             ->columns($columns)
             ->filters([
@@ -104,8 +105,14 @@ class PengajuanRapatKonsumsiResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
-                if (!auth()->user()->is_admin) return $query->where('id_pegawai', auth()->user()->id_pegawai);
+                if (!auth()->user()->is_admin)
+                    return $query->where('id_pegawai', auth()->user()->id_pegawai);
             });
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user() && auth()->user()->is_admin;
     }
 
     public static function getPages(): array

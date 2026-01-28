@@ -1,4 +1,4 @@
-let isLocationSet = 0;
+let isLocationSet = false;
 function updateTime() {
     const liveTimeElement = document.getElementById('live-time');
     if (liveTimeElement) {
@@ -14,22 +14,20 @@ function locationTag() {
                 let latitude = position.coords.latitude;
                 let longitude = position.coords.longitude;
 
-                if (isLocationSet!=2) {
-                    // Convert coordinates to a readable location using a service
-                    isLocationSet++;
-                    fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
-                        .then(response => response.json())
-                        .then(data => {
-                            let location = data.city || data.locality || data.principalSubdivision || 'Location unavailable';
-                            document.getElementById('location').textContent = location;
-                        })
-                        .catch(error => {
-                            console.error('Error fetching location:', error);
-                            document.getElementById('location').textContent = 'Location unavailable';
+                // Convert coordinates to a readable location using a service
+                fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`)
+                    .then(response => response.json())
+                    .then(data => {
+                        let location = data.city || data.locality || data.principalSubdivision || 'Location unavailable';
+                        document.getElementById('location').textContent = location;
+                        // isLocationSet = true;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching location:', error);
+                        document.getElementById('location').textContent = 'Location unavailable';
 
-                            isLocationSet++;
-                        });
-                }
+                        // isLocationSet = true;
+                    });
 
             },
             function (error) {
@@ -43,7 +41,7 @@ function locationTag() {
 }
 function main() {
     updateTime();
-    if (isLocationSet!=2) locationTag();
+    if (!isLocationSet) locationTag();
 }
 window.onload = function () {
     setInterval(main, 1000); // Update every second

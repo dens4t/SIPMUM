@@ -104,14 +104,19 @@ class GuestController extends Controller
     public function unit_get($unit)
     {
         $unit = Unit::where('nama', $unit)->firstOrFail();
-        if ($unit->page_unit == null) return abort(404);
+        if ($unit->page_unit == null)
+            return abort(404);
         return view('guest.unit', compact('unit'));
     }
     public function login()
     {
-        if (!auth()->user()) return view('guest.login');
-        if (auth()->user()->is_admin) return redirect()->to('/admin');
-        if (!auth()->user()->is_admin) return redirect()->to('/pegawai');
+        if (!auth()->user())
+            return view('guest.login');
+        if (auth()->user() && auth()->user()->is_admin)
+            return redirect()->to('/admin');
+        if (auth()->user() && !auth()->user()->is_admin)
+            return redirect()->to('/pegawai');
+        return view('guest.login'); // Fallback
     }
     public function login_proses(Request $request)
     {

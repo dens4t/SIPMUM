@@ -29,6 +29,7 @@ class User extends Authenticatable
         'password',
         'id_pegawai',
         'last_login_at',
+        'is_admin',
     ];
 
     /**
@@ -49,16 +50,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'last_login_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
-    public function pegawai(){
-        return $this->hasOne(Pegawai::class, 'id','id_pegawai');
+    public function pegawai()
+    {
+        return $this->hasOne(Pegawai::class, 'id', 'id_pegawai');
     }
 
     public function canAccessPanel(Panel $panel): bool
     {
-
-        return true;
-        // if (!$this->is_admin) redirect()->to('pegawai');
-        // return true;
+        return $this->is_admin;
     }
 }
