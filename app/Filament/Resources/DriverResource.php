@@ -40,6 +40,7 @@ class DriverResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('nama')->sortable(),
                 Tables\Columns\TextColumn::make('no_hp')->sortable(),
             ])

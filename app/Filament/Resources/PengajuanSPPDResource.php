@@ -59,6 +59,7 @@ class PengajuanSPPDResource extends Resource
     public static function table(Table $table): Table
     {
         $columns = [
+            Tables\Columns\TextColumn::make('id')->sortable(),
             Tables\Columns\TextColumn::make('jenis_sppd')->label('Jenis')->sortable(),
             Tables\Columns\TextColumn::make('judul_kegiatan')->label('Judul Rapat')->sortable(),
             Tables\Columns\TextColumn::make('tanggal_awal_kegiatan')->label('Tanggal Awal Kegiatan')->sortable(),
@@ -96,6 +97,7 @@ class PengajuanSPPDResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
+                $query->with(['pegawai.unit', 'kota_tujuan']);
                 if (!auth()->user()->is_admin)
                     return $query->where('id_pegawai', auth()->user()->id_pegawai);
             });
@@ -103,7 +105,7 @@ class PengajuanSPPDResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user() && auth()->user()->is_admin;
+        return auth()->check();
     }
 
     public static function getPages(): array

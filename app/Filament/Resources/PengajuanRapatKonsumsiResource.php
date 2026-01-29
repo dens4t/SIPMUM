@@ -55,6 +55,7 @@ class PengajuanRapatKonsumsiResource extends Resource
     public static function table(Table $table): Table
     {
         $columns = [
+            Tables\Columns\TextColumn::make('id')->sortable(),
             Tables\Columns\TextColumn::make('judul_rapat')->label('Judul Rapat')->sortable(),
             Tables\Columns\TextColumn::make('tanggal_waktu_mulai')->label('Tanggal dan Waktu Mulai')->sortable(),
             Tables\Columns\TextColumn::make('ruang')->label('Lokasi Rapat')->sortable(),
@@ -105,6 +106,7 @@ class PengajuanRapatKonsumsiResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
+                $query->with(['pegawai.unit']);
                 if (!auth()->user()->is_admin)
                     return $query->where('id_pegawai', auth()->user()->id_pegawai);
             });
@@ -112,7 +114,7 @@ class PengajuanRapatKonsumsiResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user() && auth()->user()->is_admin;
+        return auth()->check();
     }
 
     public static function getPages(): array

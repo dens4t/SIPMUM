@@ -34,7 +34,6 @@ class UserPanelProvider extends PanelProvider
         return $panel
             ->id('user')
             ->path('pegawai')
-            ->login(CustomLogin::class)
             ->colors([
                 'primary' => Color::Blue,
             ])
@@ -61,6 +60,8 @@ class UserPanelProvider extends PanelProvider
             ])
             ->font('Inter', provider: GoogleFontProvider::class)
             ->authMiddleware([
+                Authenticate::class,
+                \App\Http\Middleware\ForceLogin::class,
                 RedirectIfAdmin::class,
             ])
             ->maxContentWidth(MaxWidth::Full)

@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -59,6 +59,12 @@ class User extends Authenticatable
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->is_admin;
+        if ($panel->getId() === 'admin') {
+            return $this->is_admin;
+        } elseif ($panel->getId() === 'user') {
+            return !$this->is_admin;
+        }
+
+        return true;
     }
 }

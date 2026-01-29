@@ -47,6 +47,7 @@ class KegiatanResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('nama')->label('Nama')->sortable(),
                 Tables\Columns\TextColumn::make('tanggal')->label('Tanggal'),
             ])

@@ -54,15 +54,15 @@ class UnitResource extends Resource
     {
         return $table
             ->columns([
-
+                Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\ImageColumn::make('page_unit.thumbnail')->label('Thumbnail')->circular()->size(250),
                 Tables\Columns\TextColumn::make('nama')->label('Nama')->state(function (Model $record): string {
                     return Str::upper($record->jenis) . " " . $record->nama;
                 })->sortable(),
                 Tables\Columns\IconColumn::make('page_unit')->label('Ketersediaan Halaman')
                     ->boolean()
-                //
             ])
+            ->modifyQueryUsing(fn(Builder $query) => $query->with(['page_unit']))
             ->filters([
                 //
             ])

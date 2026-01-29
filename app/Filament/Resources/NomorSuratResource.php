@@ -35,7 +35,7 @@ class NomorSuratResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user() && auth()->user()->is_admin;
+        return auth()->check();
     }
 
     public static function form(Form $form): Form
@@ -64,6 +64,7 @@ class NomorSuratResource extends Resource
     public static function table(Table $table): Table
     {
         $columns = [
+            Tables\Columns\TextColumn::make('id')->sortable(),
             Tables\Columns\TextColumn::make('perihal')->label('Perihal')->sortable(),
         ];
         if (auth()->user()->is_admin)
@@ -112,6 +113,7 @@ class NomorSuratResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
+                $query->with(['pegawai']);
                 if (!auth()->user()->is_admin)
                     return $query->where('id_pegawai', auth()->user()->id_pegawai);
             })

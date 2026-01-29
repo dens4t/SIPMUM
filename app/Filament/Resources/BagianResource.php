@@ -45,6 +45,7 @@ class BagianResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('nama')->label('Nama')->state(function (Model $record): string {
                     return Str::ucfirst($record->jenis) . " " . $record->nama;
                 })->sortable(),

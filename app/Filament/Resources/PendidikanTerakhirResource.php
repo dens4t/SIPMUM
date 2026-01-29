@@ -40,6 +40,7 @@ class PendidikanTerakhirResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('urutan')->label('Urutan')->sortable(),
                 Tables\Columns\TextColumn::make('jenjang')->label('Jenjang Pendidikan')->sortable()
             ])

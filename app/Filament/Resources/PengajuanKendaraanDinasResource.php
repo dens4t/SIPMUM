@@ -45,6 +45,7 @@ class PengajuanKendaraanDinasResource extends Resource
     {
         $columns = [
             //
+            Tables\Columns\TextColumn::make('id')->sortable(),
             Tables\Columns\TextColumn::make('tanggal_peminjaman')->label('Tgl Peminjaman')->sortable(),
             Tables\Columns\TextColumn::make('tanggal_pengembalian')->label('Tgl Pengembalian')->sortable(),
             Tables\Columns\TextColumn::make('keperluan')->label('Keperluan')->sortable(),
@@ -73,6 +74,7 @@ class PengajuanKendaraanDinasResource extends Resource
                 ]),
             ])
             ->modifyQueryUsing(function (Builder $query) {
+                $query->with(['pegawai.unit']);
                 if (!auth()->user()->is_admin)
                     return $query->where('id_pegawai', auth()->user()->id_pegawai);
             });
@@ -80,7 +82,7 @@ class PengajuanKendaraanDinasResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user() && auth()->user()->is_admin;
+        return auth()->check();
     }
 
     public static function getPages(): array

@@ -8,6 +8,7 @@ function updateTime() {
     }
 }
 function locationTag() {
+    if (!document.getElementById('location') && !document.getElementById('lokasi')) return;
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
             function (position) {
@@ -19,30 +20,33 @@ function locationTag() {
                     .then(response => response.json())
                     .then(data => {
                         let location = data.city || data.locality || data.principalSubdivision || 'Location unavailable';
-                        document.getElementById('location').textContent = location;
-                        // isLocationSet = true;
+                        let locEl = document.getElementById('location');
+                        if (locEl) locEl.textContent = location;
+                        isLocationSet = true;
                     })
                     .catch(error => {
                         console.error('Error fetching location:', error);
-                        document.getElementById('location').textContent = 'Location unavailable';
-
-                        // isLocationSet = true;
+                        let locEl = document.getElementById('location');
+                        if (locEl) locEl.textContent = 'Location unavailable';
+                        isLocationSet = true;
                     });
 
             },
             function (error) {
                 console.error('Geolocation error:', error);
-                document.getElementById('lokasi').textContent = 'Location permission denied';
+                let lokEl = document.getElementById('lokasi');
+                if (lokEl) lokEl.textContent = 'Location permission denied';
             }
         );
     } else {
-        document.getElementById('lokasi').innerText = 'Geolocation not supported';
+        let lokEl = document.getElementById('lokasi');
+        if (lokEl) lokEl.innerText = 'Geolocation not supported';
     }
 }
 function main() {
     updateTime();
     if (!isLocationSet) locationTag();
 }
-window.onload = function () {
+window.addEventListener('load', function () {
     setInterval(main, 1000); // Update every second
-}
+});

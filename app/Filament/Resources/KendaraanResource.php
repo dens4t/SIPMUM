@@ -40,6 +40,7 @@ class KendaraanResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('jenis_mobil')->label('Jenis Mobil')->sortable(),
                 Tables\Columns\TextColumn::make('nomor_polisi')->label('Nomor Polisi')->sortable(),
             ])

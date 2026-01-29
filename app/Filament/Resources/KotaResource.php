@@ -38,6 +38,7 @@ class KotaResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('nama')->searchable()->sortable(),
             ])
             ->filters([

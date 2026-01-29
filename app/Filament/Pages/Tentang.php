@@ -69,13 +69,13 @@ class Tentang extends Page implements HasForms
             'tanggal_berakhir_kerja' => $this->pegawai->tanggal_berakhir_kerja,
             'tanggal_pensiun_normal' => $this->pegawai->tanggal_pensiun_normal,
             'no_hp' => $this->pegawai->no_hp,
-            'sk_pengangkatan' => $this->pegawai->dossier_pegawai->sk_pengangkatan ?? null,
-            'sk_talenta' => $this->pegawai->dossier_pegawai->sk_talenta ?? null,
-            'sk_pembinaan_grade' => $this->pegawai->dossier_pegawai->sk_pembinaan_grade ?? null,
-            'sk_mutasi_rotasi' => $this->pegawai->dossier_pegawai->sk_mutasi_rotasi ?? null,
-            'data_keluarga' => $this->pegawai->dossier_pegawai->data_keluarga ?? null,
-            'data_sertifikasi_kompetensi_dan_pelatihan' => $this->pegawai->dossier_pegawai->data_sertifikasi_kompetensi_dan_pelatihan ?? null,
-            'data_pendidikan_terakhir' => $this->pegawai->dossier_pegawai->data_pendidikan_terakhir ?? null,
+            'sk_pengangkatan' => optional($this->pegawai->dossier_pegawai)->sk_pengangkatan,
+            'sk_talenta' => optional($this->pegawai->dossier_pegawai)->sk_talenta,
+            'sk_pembinaan_grade' => optional($this->pegawai->dossier_pegawai)->sk_pembinaan_grade,
+            'sk_mutasi_rotasi' => optional($this->pegawai->dossier_pegawai)->sk_mutasi_rotasi,
+            'data_keluarga' => optional($this->pegawai->dossier_pegawai)->data_keluarga,
+            'data_sertifikasi_kompetensi_dan_pelatihan' => optional($this->pegawai->dossier_pegawai)->data_sertifikasi_kompetensi_dan_pelatihan,
+            'data_pendidikan_terakhir' => optional($this->pegawai->dossier_pegawai)->data_pendidikan_terakhir,
         ]);
     }
 

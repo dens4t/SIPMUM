@@ -58,20 +58,20 @@ class CustomLogin extends Login
 
         $data = $this->form->getState();
 
-        if (! Filament::auth()->attempt($this->getCredentialsFromFormData($data), $data['remember'] ?? false)) {
+        if (!Filament::auth()->attempt($this->getCredentialsFromFormData($data), $data['remember'] ?? false)) {
             $this->throwFailureValidationException();
         }
 
         $user = Filament::auth()->user();
 
-        if (
-            ($user instanceof FilamentUser) &&
-            (! $user->canAccessPanel(Filament::getCurrentPanel()))
-        ) {
-            Filament::auth()->logout();
+        // if (
+        //     ($user instanceof FilamentUser) &&
+        //     (! $user->canAccessPanel(Filament::getCurrentPanel()))
+        // ) {
+        //     Filament::auth()->logout();
 
-            $this->throwFailureValidationException();
-        }
+        //     $this->throwFailureValidationException();
+        // }
         $lastLoginUpdate = auth()->user()->update(['last_login_at' => now()]);
         session()->regenerate();
 

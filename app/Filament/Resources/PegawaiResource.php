@@ -129,11 +129,13 @@ class PegawaiResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\ImageColumn::make('profile')->circular()->defaultImageUrl(url('storage/profile/default.jpg')),
                 Tables\Columns\TextColumn::make('nama')->label('Nama')->sortable(),
                 Tables\Columns\TextColumn::make('unit.nama_lengkap')->label('Unit')->sortable(),
                 Tables\Columns\TextColumn::make('jabatan.nama')->label('Nama Jabatan')->sortable(),
             ])
+            ->modifyQueryUsing(fn(Builder $query) => $query->with(['unit', 'jabatan', 'dossier_pegawai']))
             ->filters([
                 SelectFilter::make('jabatan')->label('Jabatan')
                     ->relationship('jabatan', 'nama'),
