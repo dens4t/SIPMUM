@@ -24,5 +24,9 @@ class DatabaseSeeder extends Seeder
             ApproverCategorySeeder::class,
             KapuasPegawaiApproverSeeder::class,
         ]);
+
+        if (filter_var(env('SEED_PENDING_STAFF', false), FILTER_VALIDATE_BOOL)) {
+            $this->call(PendingPengajuanStaffSeeder::class);
+        }
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Unit;
 use Filament\Actions\Action;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Tabs\Tab;
@@ -82,86 +83,113 @@ class Tentang extends Page implements HasForms
     public function form(Form $form): Form
     {
         return $form->schema([
-            Tabs::make('Pegawai Details')->tabs([
+            Tabs::make('Pegawai Details')
+                ->persistTabInQueryString()
+                ->tabs([
                 Tab::make('Personal Info')
+                    ->icon('heroicon-o-user')
                     ->schema([
-                        TextInput::make('NIP')->disabled()->label('NIP')->required(),
-                        TextInput::make('nama')->required(),
-                        Select::make('jenis_kelamin')->label('Jenis Kelamin')->options([
-                            'L' => 'Laki-Laki',
-                            'P' => 'Perempuan'
-                        ])->required(),
-                        TextInput::make('no_ktp')->label('No KTP'),
-                        TextInput::make('no_npwp')->label('No NPWP'),
-                        TextInput::make('no_hp')->label('No HP')->required(),
-                        TextInput::make('email'),
-                        Textarea::make('alamat_lengkap')->label('Alamat Lengkap'),
-                        TextInput::make('kota'),
-                        TextInput::make('tempat_lahir')->label('Tempat Lahir'),
-                        DatePicker::make('tanggal_lahir')->label('Tanggal Lahir'),
-                        TextInput::make('keterangan_pegawai')->label('Keterangan Pegawai'),
-                        Select::make('id_jabatan')->label('Jabatan')->disabled()->options(Jabatan::all()->pluck('nama', 'id'))->searchable()->required(),
-                        Select::make('id_bagian')->label('Bagian')->disabled()->options(Bagian::get()->pluck('nama_lengkap', 'id'))->searchable()->required(),
-                        Select::make('id_unit')->label('Unit')->disabled()->options(Unit::all()->pluck('nama_lengkap', 'id'))->searchable()->required(),
-                        TextInput::make('keterangan_pegawai')->label('Keterangan Pegawai'),
+                        Section::make('Data Diri Utama')
+                            ->description('Silakan lengkapi data personal yang sering digunakan.')
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('NIP')->disabled()->label('NIP')->required(),
+                                TextInput::make('nama')->required(),
+                                Select::make('jenis_kelamin')->label('Jenis Kelamin')->options([
+                                    'L' => 'Laki-Laki',
+                                    'P' => 'Perempuan',
+                                ])->required(),
+                                TextInput::make('no_hp')->label('No HP')->required(),
+                                TextInput::make('email')->email(),
+                                TextInput::make('tempat_lahir')->label('Tempat Lahir'),
+                                DatePicker::make('tanggal_lahir')->label('Tanggal Lahir'),
+                                TextInput::make('kota'),
+                                TextInput::make('no_ktp')->label('No KTP'),
+                                TextInput::make('no_npwp')->label('No NPWP'),
+                                Textarea::make('alamat_lengkap')->label('Alamat Lengkap')->columnSpanFull(),
+                            ]),
+                        Section::make('Informasi Organisasi (Read Only)')
+                            ->collapsible()
+                            ->collapsed()
+                            ->columns(2)
+                            ->schema([
+                                Select::make('id_jabatan')->label('Jabatan')->disabled()->options(Jabatan::all()->pluck('nama', 'id'))->searchable()->required(),
+                                Select::make('id_bagian')->label('Bagian')->disabled()->options(Bagian::query()->pluck('nama_lengkap', 'id'))->searchable()->required(),
+                                Select::make('id_unit')->label('Unit')->disabled()->options(Unit::all()->pluck('nama_lengkap', 'id'))->searchable()->required(),
+                                TextInput::make('keterangan_pegawai')->label('Keterangan Pegawai'),
+                            ]),
                     ]),
                 Tab::make('Job Info')
+                    ->icon('heroicon-o-briefcase')
                     ->schema([
-                        TextInput::make('jabatan_lengkap')->label('Jabatan Lengkap'),
-                        DatePicker::make('tanggal_masuk')->label('Tanggal Masuk'),
-                        DatePicker::make('tanggal_calon_pegawai')->label('Tanggal Calon Pegawai'),
-                        DatePicker::make('tanggal_pegawai')->label('Tanggal Pegawai'),
-                        DatePicker::make('tanggal_berakhir_kerja')->label('Tanggal Berakhir Kerja'),
-                        DatePicker::make('tanggal_pensiun_normal')->label('Tanggal Pensiun Normal'),
+                        Section::make('Informasi Jabatan')
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('jabatan_lengkap')->label('Jabatan Lengkap')->columnSpanFull(),
+                                DatePicker::make('tanggal_masuk')->label('Tanggal Masuk'),
+                                DatePicker::make('tanggal_calon_pegawai')->label('Tanggal Calon Pegawai'),
+                                DatePicker::make('tanggal_pegawai')->label('Tanggal Pegawai'),
+                                DatePicker::make('tanggal_berakhir_kerja')->label('Tanggal Berakhir Kerja'),
+                                DatePicker::make('tanggal_pensiun_normal')->label('Tanggal Pensiun Normal'),
+                            ]),
                     ]),
 
                 Tab::make('Grade Info')
+                    ->icon('heroicon-o-chart-bar-square')
                     ->schema([
-                        TextInput::make('person_grade')->label('Person Grade'),
-                        TextInput::make('position_grade')->label('Position Grade'),
-                        TextInput::make('jenjang_jabatan')->label('Jenjang Grade'),
-                        DatePicker::make('tanggal_grade')->label('Tanggal Grade'),
-                        DatePicker::make('tanggal_mulai')->label('Tanggal Mulai'),
+                        Section::make('Informasi Grade')
+                            ->columns(2)
+                            ->schema([
+                                TextInput::make('person_grade')->label('Person Grade'),
+                                TextInput::make('position_grade')->label('Position Grade'),
+                                TextInput::make('jenjang_jabatan')->label('Jenjang Grade'),
+                                DatePicker::make('tanggal_grade')->label('Tanggal Grade'),
+                                DatePicker::make('tanggal_mulai')->label('Tanggal Mulai'),
+                            ]),
                     ]),
                 Tab::make('Dossier Pegawai')
+                    ->icon('heroicon-o-folder')
                     ->schema([
-                        FileUpload::make('sk_pengangkatan')
-                            ->label('SK Pengangkatan')
-                            ->directory('dokumen_pegawai')->storeFileNamesIn('sk_pengangkatan')
-                            ->maxSize(10240) // Limit file size to 10MB
-                            ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
-                        // Allow images and PDFs,
-                        FileUpload::make('sk_talenta')
-                            ->label('SK Talenta')
-                            ->directory('dokumen_pegawai')->storeFileNamesIn('sk_talenta')
-                            ->maxSize(10240) // Limit file size to 10MB
-                            ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
-                        FileUpload::make('sk_pembinaan_grade')
-                            ->label('SK Talenta')
-                            ->directory('dokumen_pegawai')->storeFileNamesIn('sk_pembinaan_grade')
-                            ->maxSize(10240) // Limit file size to 10MB
-                            ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
-                        FileUpload::make('sk_mutasi_rotasi')
-                            ->label('SK Mutasi Rotasi')
-                            ->directory('dokumen_pegawai')->storeFileNamesIn('sk_mutasi_rotasi')
-                            ->maxSize(10240) // Limit file size to 10MB
-                            ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
-                        FileUpload::make('data_keluarga')
-                            ->label('Data Keluarga')
-                            ->directory('dokumen_pegawai')->storeFileNamesIn('data_keluarga')
-                            ->maxSize(10240) // Limit file size to 10MB
-                            ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
-                        FileUpload::make('data_sertifikasi_kompetensi_dan_pelatihan')
-                            ->label('Data Sertifikasi & Pelatihan')
-                            ->directory('dokumen_pegawai')->storeFileNamesIn('data_sertifikasi_kompetensi_dan_pelatihan')
-                            ->maxSize(10240) // Limit file size to 10MB
-                            ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
-                        FileUpload::make('data_pendidikan_terakhir')
-                            ->label('Data Pendidikan Terakhir')
-                            ->directory('dokumen_pegawai')->storeFileNamesIn('data_pendidikan_terakhir')
-                            ->maxSize(10240) // Limit file size to 10MB
-                            ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
-                        // ...
+                        Section::make('Dokumen Pegawai')
+                            ->description('Dokumen ditampilkan untuk referensi. Pengubahan dilakukan oleh admin.')
+                            ->columns(2)
+                            ->schema([
+                                FileUpload::make('sk_pengangkatan')
+                                    ->label('SK Pengangkatan')
+                                    ->directory('dokumen_pegawai')->storeFileNamesIn('sk_pengangkatan')
+                                    ->maxSize(10240)
+                                    ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
+                                FileUpload::make('sk_talenta')
+                                    ->label('SK Talenta')
+                                    ->directory('dokumen_pegawai')->storeFileNamesIn('sk_talenta')
+                                    ->maxSize(10240)
+                                    ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
+                                FileUpload::make('sk_pembinaan_grade')
+                                    ->label('SK Pembinaan Grade')
+                                    ->directory('dokumen_pegawai')->storeFileNamesIn('sk_pembinaan_grade')
+                                    ->maxSize(10240)
+                                    ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
+                                FileUpload::make('sk_mutasi_rotasi')
+                                    ->label('SK Mutasi Rotasi')
+                                    ->directory('dokumen_pegawai')->storeFileNamesIn('sk_mutasi_rotasi')
+                                    ->maxSize(10240)
+                                    ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
+                                FileUpload::make('data_keluarga')
+                                    ->label('Data Keluarga')
+                                    ->directory('dokumen_pegawai')->storeFileNamesIn('data_keluarga')
+                                    ->maxSize(10240)
+                                    ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
+                                FileUpload::make('data_sertifikasi_kompetensi_dan_pelatihan')
+                                    ->label('Data Sertifikasi & Pelatihan')
+                                    ->directory('dokumen_pegawai')->storeFileNamesIn('data_sertifikasi_kompetensi_dan_pelatihan')
+                                    ->maxSize(10240)
+                                    ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
+                                FileUpload::make('data_pendidikan_terakhir')
+                                    ->label('Data Pendidikan Terakhir')
+                                    ->directory('dokumen_pegawai')->storeFileNamesIn('data_pendidikan_terakhir')
+                                    ->maxSize(10240)
+                                    ->acceptedFileTypes(['application/pdf'])->disabled()->openable()->previewable(false)->nullable(),
+                            ]),
                     ]),
                 // Forms\Components\Tabs\Tab::make('Account Info')
                 //     ->schema([
@@ -193,7 +221,7 @@ class Tentang extends Page implements HasForms
                     ->success()
                     ->send();
 
-                redirect('admin/tentang');
+                redirect()->to('/pegawai/tentang');
 
             }
         } catch (Halt $ex) {
