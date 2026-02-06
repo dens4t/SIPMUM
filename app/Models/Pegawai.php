@@ -38,6 +38,12 @@ class Pegawai extends Model
     {
         return $this->belongsTo(User::class, 'id', 'id_pegawai');
     }
+
+    public function bawahan()
+    {
+        return $this->hasMany(Pegawai::class, 'id_atasan', 'id');
+    }
+
     public function dossier_pegawai()
     {
         return $this->belongsTo(DossierPegawai::class, 'id', 'id_pegawai');
