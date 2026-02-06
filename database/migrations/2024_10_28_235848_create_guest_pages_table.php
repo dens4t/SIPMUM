@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('order'); //['profil','unit_pembangkit','media']
             $table->string('thumbnail')->nullable();
-            $table->string('slug')->unqiue(); //['profil','unit_pembangkit','media']
+            $table->string('slug')->unique(); //['profil','unit_pembangkit','media']
             $table->string('menu')->nullable(); //['profil','unit_pembangkit','media']
             $table->string('title')->unique();
             $table->boolean('active')->default(true);
