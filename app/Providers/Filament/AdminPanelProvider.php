@@ -60,6 +60,7 @@ class AdminPanelProvider extends PanelProvider
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
                 StartSession::class,
+                RedirectIfPegawai::class,
                 AuthenticateSession::class,
                 ShareErrorsFromSession::class,
                 VerifyCsrfToken::class,
@@ -69,7 +70,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Inter', provider: GoogleFontProvider::class)
             ->authMiddleware([
-                RedirectIfPegawai::class,
                 Authenticate::class,
             ])
             ->maxContentWidth(MaxWidth::Full)
