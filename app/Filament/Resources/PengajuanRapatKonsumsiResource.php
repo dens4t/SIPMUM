@@ -29,7 +29,7 @@ class PengajuanRapatKonsumsiResource extends Resource
     {
         return $form
             ->schema([
-                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->pegawai->id) : Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required()),
+                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->pegawai->id) : Forms\Components\Select::make('id_pegawai')->relationship('pegawai', 'nama')->label('Pegawai')->searchable()->preload()->required()),
                 Forms\Components\Textarea::make('judul_rapat')->label('Judul Rapat')->required(),
                 Forms\Components\TextInput::make('jumlah_peserta_rapat')->integer()->label('Jumlah Peserta Rapat')->required(),
                 Forms\Components\DateTimePicker::make('tanggal_waktu_mulai')->label('Tanggal dan Waktu Mulai')->required(),

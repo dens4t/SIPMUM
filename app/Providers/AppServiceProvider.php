@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Http\Responses\LoginResponse;
+use App\Models\Unit;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationGroup;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -55,5 +57,13 @@ class AppServiceProvider extends ServiceProvider
         FilamentAsset::register([
             Js::make('fullcalendar', 'https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'),
         ]);
+
+        // Share units only for guest views that need it (cached for 1 hour)
+        View::composer('guest.partials.navbar', function ($view) {
+            $units = cache()->remember('guest_navbar_units', 3600, function () {
+                return Unit::all();
+            });
+            $view->with('units', $units);
+        });
     }
 }

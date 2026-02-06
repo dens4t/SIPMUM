@@ -17,10 +17,18 @@ class GuestController extends Controller
 {
     protected $units;
     protected $pages;
+    
+    protected function getUnits()
+    {
+        if ($this->units === null) {
+            $this->units = Unit::all();
+        }
+        return $this->units;
+    }
+    
     public function __construct()
     {
-        $this->units = Unit::all();
-        View::share('units', $this->units);
+        // Lazy load units only when needed via getUnits()
     }
     public function index()
     {
@@ -28,16 +36,15 @@ class GuestController extends Controller
     }
     public function siaran_pers_page($slug)
     {
-        $data = GuestPage::where('active', '1')->select('id', 'thumbnail', 'slug', 'title', 'active', 'created_at')->get();
-        $popular = $data->take(-3);
+        $post = GuestPage::where('slug', $slug)->where('active', '1')->firstOrFail();
+        $popular = GuestPage::where('active', '1')->latest()->limit(3)->get(['id', 'thumbnail', 'slug', 'title', 'active', 'created_at']);
 
-        $post = GuestPage::where('slug', $slug)->firstOrFail();
-        return view('guest.siaran_pers-detail', compact('data', 'popular', 'post'));
+        return view('guest.siaran_pers-detail', compact('popular', 'post'));
     }
 
     public function berita()
     {
-        $data = GuestPage::where('active', '1')->get();
+        $data = GuestPage::where('active', '1')->select('id', 'thumbnail', 'slug', 'title', 'active', 'created_at')->paginate(12);
         return view('guest.berita', compact('data'));
     }
     public function datatable_nomor_surat(Request $request)
@@ -144,9 +151,9 @@ class GuestController extends Controller
 
     public function siaran_pers()
     {
-        $data = GuestPage::where('active', '1')->select('id', 'thumbnail', 'slug', 'title', 'active', 'created_at')->get();
-        $slides = $data->take(3);
-        $popular = $data->take(-3);
+        $slides = GuestPage::where('active', '1')->latest()->limit(3)->get(['id', 'thumbnail', 'slug', 'title', 'active', 'created_at']);
+        $popular = GuestPage::where('active', '1')->latest()->limit(3)->offset(3)->get(['id', 'thumbnail', 'slug', 'title', 'active', 'created_at']);
+        $data = GuestPage::where('active', '1')->select('id', 'thumbnail', 'slug', 'title', 'active', 'created_at')->paginate(12);
         return view('guest.siaran_pers', compact('data', 'slides', 'popular'));
     }
 }

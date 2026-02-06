@@ -44,7 +44,7 @@ class NomorSuratResource extends Resource
         return $form
             ->schema([
                     // Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required(),
-                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->id_pegawai) : Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required()),
+                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->id_pegawai) : Forms\Components\Select::make('id_pegawai')->relationship('pegawai', 'nama')->label('Pegawai')->searchable()->preload()->required()),
                 Forms\Components\Select::make('kode_surat')->options([
                     'SKT' => 'Surat Keterangan (Keterangan Kerja, Keterangan Selesai Praktek Industri, dll)',
                     'BA/BAPP' => 'Berita Acara (Pembayaran Fix Cost, Var Cost, Pemakaian BBM, dll.)',

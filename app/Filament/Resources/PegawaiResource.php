@@ -23,6 +23,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class PegawaiResource extends Resource
 {
@@ -65,9 +66,10 @@ class PegawaiResource extends Resource
                     ->tabs([
                         Forms\Components\Tabs\Tab::make('Personal Info')
                             ->schema([
-                                Forms\Components\FileUpload::make('profile')
+                                Forms\Components\FileUpload::make('profile_photo')
                                     ->label('Profile')
-                                    ->directory('profile')->storeFileNamesIn('profile')
+                                    ->directory('profile')
+                                    ->image()
                                     ->maxSize(10240) // Limit file size to 10MB
                                     ->acceptedFileTypes(['image/jpeg', 'image/png'])->openable(),
                                 Forms\Components\TextInput::make('NIP')->label('NIP')->required(),
@@ -85,11 +87,10 @@ class PegawaiResource extends Resource
                                 Forms\Components\TextInput::make('tempat_lahir')->label('Tempat Lahir'),
                                 Forms\Components\DatePicker::make('tanggal_lahir')->label('Tanggal Lahir'),
                                 Forms\Components\TextInput::make('keterangan_pegawai')->label('Keterangan Pegawai'),
-                                Forms\Components\Select::make('id_jabatan')->label('Jabatan')->options(Jabatan::all()->pluck('nama', 'id'))->searchable()->required(),
-                                Forms\Components\Select::make('id_bagian')->label('Bagian')->options(Bagian::get()->pluck('nama_lengkap', 'id'))->searchable()->required(),
-                                Forms\Components\Select::make('id_unit')->label('Unit')->options(Unit::all()->pluck('nama_lengkap', 'id'))->searchable()->required(),
-                                Forms\Components\Select::make('id_pendidikan_terakhir')->label('Pendidikan Terakhir')->options(PendidikanTerakhir::all()->pluck('jenjang', 'id'))->searchable()->required(),
-                                Forms\Components\TextInput::make('keterangan_pegawai')->label('Keterangan Pegawai'),
+                                Forms\Components\Select::make('id_jabatan')->label('Jabatan')->relationship('jabatan', 'nama')->searchable()->preload()->required(),
+                                Forms\Components\Select::make('id_bagian')->label('Bagian')->relationship('bagian', 'nama_lengkap')->searchable()->preload()->required(),
+                                Forms\Components\Select::make('id_unit')->label('Unit')->relationship('unit', 'nama_lengkap')->searchable()->preload()->required(),
+                                Forms\Components\Select::make('id_pendidikan_terakhir')->label('Pendidikan Terakhir')->relationship('pendidikan_terakhir', 'jenjang')->searchable()->preload()->required(),
                             ]),
 
                         Forms\Components\Tabs\Tab::make('Job Info')
@@ -130,19 +131,28 @@ class PegawaiResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\ImageColumn::make('profile')->circular()->defaultImageUrl(url('storage/profile/default.jpg')),
-                Tables\Columns\TextColumn::make('nama')->label('Nama')->sortable(),
-                Tables\Columns\TextColumn::make('unit.nama_lengkap')->label('Unit')->sortable(),
-                Tables\Columns\TextColumn::make('jabatan.nama')->label('Nama Jabatan')->sortable(),
+                Tables\Columns\ImageColumn::make('profile_photo')
+                    ->circular()
+                    ->defaultImageUrl(fn(Pegawai $record): string => self::buildInitialAvatar($record->nama)),
+                Tables\Columns\TextColumn::make('NIP')->label('NIP')->searchable(),
+                Tables\Columns\TextColumn::make('nama')->label('Nama')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('unit.nama_lengkap')
+                    ->label('Unit')
+                    ->sortable()
+                    ->searchable(query: function (Builder $query, string $search): Builder {
+                        return $query->orWhereHas('unit', function (Builder $unitQuery) use ($search): Builder {
+                            return $unitQuery->where('nama', 'like', "%{$search}%")
+                                ->orWhere('jenis', 'like', "%{$search}%");
+                        });
+                    }),
+                Tables\Columns\TextColumn::make('jabatan.nama')->label('Nama Jabatan')->sortable()->searchable(),
             ])
-            ->modifyQueryUsing(fn(Builder $query) => $query->with(['unit', 'jabatan', 'dossier_pegawai']))
+            ->modifyQueryUsing(fn(Builder $query) => $query->with(['unit', 'jabatan', 'dossier_pegawai', 'user']))
             ->filters([
                 SelectFilter::make('jabatan')->label('Jabatan')
                     ->relationship('jabatan', 'nama'),
                 SelectFilter::make('unit')->label('Unit')
                     ->relationship('unit', 'nama'),
-                SelectFilter::make('jabatan')->label('Jabatan')
-                    ->relationship('jabatan', 'nama'),
                 SelectFilter::make('pendidikan_terakhir')->label('Pendidikan Terakhir')
                     ->relationship('pendidikan_terakhir', 'jenjang'),
             ])
@@ -221,6 +231,10 @@ class PegawaiResource extends Resource
                             ->send();
                     }),
                 Tables\Actions\Action::make('buatUser')->label('User Pegawai')->slideOver()->icon('heroicon-m-arrow-right-end-on-rectangle')
+                    ->color(fn(Pegawai $record): string => $record->user ? 'gray' : 'warning')
+                    ->tooltip(fn(Pegawai $record): string => $record->user
+                        ? 'Akun pegawai sudah tersedia.'
+                        : 'Pegawai ini belum memiliki akun. Klik untuk membuat akun.')
                     // ->model(DossierPegawai::class)
                     ->fillForm(function (Pegawai $record) {
                         $data = ['username' => $record->NIP];
@@ -258,5 +272,27 @@ class PegawaiResource extends Resource
         return [
             'index' => Pages\ManagePegawais::route('/'),
         ];
+    }
+
+    private static function buildInitialAvatar(?string $nama): string
+    {
+        $initials = self::extractInitials($nama);
+        $svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>"
+            ."<rect width='64' height='64' rx='32' fill='#dbe4f0'/>"
+            ."<text x='50%' y='50%' dominant-baseline='central' text-anchor='middle' font-family='Arial, sans-serif' font-size='22' font-weight='700' fill='#243447'>"
+            .e($initials)
+            ."</text></svg>";
+
+        return 'data:image/svg+xml;base64,'.base64_encode($svg);
+    }
+
+    private static function extractInitials(?string $nama): string
+    {
+        $words = collect(explode(' ', trim((string) $nama)))
+            ->filter(fn(string $word): bool => $word !== '')
+            ->take(2)
+            ->map(fn(string $word): string => Str::upper(Str::substr($word, 0, 1)));
+
+        return $words->isNotEmpty() ? $words->implode('') : 'NA';
     }
 }

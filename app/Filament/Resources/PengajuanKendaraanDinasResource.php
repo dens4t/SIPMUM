@@ -29,14 +29,14 @@ class PengajuanKendaraanDinasResource extends Resource
     {
         return $form
             ->schema([
-                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->pegawai->id) : Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required()),
+                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->pegawai->id) : Forms\Components\Select::make('id_pegawai')->relationship('pegawai', 'nama')->label('Pegawai')->searchable()->preload()->required()),
                 Forms\Components\DatePicker::make('tanggal_peminjaman')->label('Tanggal Peminjaman')->required(),
                 Forms\Components\DatePicker::make('tanggal_pengembalian')->label('Tanggal Pengembalian')->required(),
                 Forms\Components\Textarea::make('keperluan')->label('Keperluan')->required(),
                 Forms\Components\TextInput::make('tujuan')->label('tujuan')->required(),
                 Forms\Components\TextInput::make('stand_km_awal')->label('Stand KM Awal')->required(),
-                Forms\Components\Select::make('id_driver')->label('Driver')->options(Driver::all()->pluck('nama', 'id'))->searchable()->required(),
-                Forms\Components\Select::make('id_kendaraan')->label('Kendaraan')->options(Kendaraan::all()->pluck('jenis_mobil', 'id'))->searchable()->required(),
+                Forms\Components\Select::make('id_driver')->label('Driver')->relationship('driver', 'nama')->searchable()->preload()->required(),
+                Forms\Components\Select::make('id_kendaraan')->label('Kendaraan')->relationship('kendaraan', 'jenis_mobil')->searchable()->preload()->required(),
                 // Forms\Components\Select::make('no_hp')->label('No HP')->disabled(),
             ]);
     }

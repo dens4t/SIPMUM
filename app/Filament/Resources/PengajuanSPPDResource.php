@@ -28,7 +28,7 @@ class PengajuanSPPDResource extends Resource
     {
         return $form
             ->schema([
-                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_pegawai')->default(auth()->user()->pegawai->id) : Forms\Components\Select::make('id_pegawai')->options(Pegawai::all()->pluck('nama', 'id'))->label('Pegawai')->searchable()->required()),
+                (!auth()->user()->is_admin ? Forms\Components\Hidden::make('id_egawai')->default(auth()->user()->pegawai->id) : Forms\Components\Select::make('id_pegawai')->relationship('pegawai', 'nama')->label('Pegawai')->searchable()->preload()->required()),
                 Forms\Components\Select::make('jenis_sppd')->label('Jenis SPPD')->options([
                     'diklat' => 'Diklat',
                     'non_diklat' => 'Non Diklat',
@@ -45,8 +45,8 @@ class PengajuanSPPDResource extends Resource
                     'kendaraan_dinas' => 'Kendaraan Dinas',
                     'kendaraan_umum' => 'Kendaraan Umum',
                 ])->required(),
-                Forms\Components\Select::make('id_kota_asal')->label('Asal Kota Keberangkatan')->searchable()->options(Kota::all()->pluck('nama', 'id'))->required(),
-                Forms\Components\Select::make('id_kota_tujuan')->label('Tujuan Kota Keberangkatan')->searchable()->options(Kota::all()->pluck('nama', 'id'))->required(),
+                Forms\Components\Select::make('id_kota_asal')->label('Asal Kota Keberangkatan')->searchable()->relationship('kota_asal', 'nama')->preload()->required(),
+                Forms\Components\Select::make('id_kota_tujuan')->label('Tujuan Kota Keberangkatan')->searchable()->relationship('kota_tujuan', 'nama')->preload()->required(),
                 // Forms\Components\TextInput::make('surat_undangan_penugasan')->label('Link Surat Undangan / Surat Penugasan')->required(),
                 Forms\Components\FileUpload::make('surat_undangan_penugasan')
                     ->label('Link Surat Undangan / Surat Penugasan')
