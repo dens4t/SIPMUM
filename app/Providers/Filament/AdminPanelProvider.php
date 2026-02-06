@@ -69,8 +69,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->font('Inter', provider: GoogleFontProvider::class)
             ->authMiddleware([
-                Authenticate::class,
                 RedirectIfPegawai::class,
+                Authenticate::class,
             ])
             ->maxContentWidth(MaxWidth::Full)
             ->unsavedChangesAlerts()
