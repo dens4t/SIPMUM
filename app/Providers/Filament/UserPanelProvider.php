@@ -7,6 +7,7 @@ use App\Filament\Widgets\DaftarUnit;
 use App\Filament\Widgets\JenjangPegawai;
 use App\Filament\Widgets\JumlahPegawai;
 use App\Filament\Widgets\Kalender;
+use App\Filament\Widgets\PegawaiRingkasanPermohonan;
 use App\Filament\Widgets\Profile;
 use App\Http\Middleware\RedirectIfAdmin;
 use Filament\FontProviders\GoogleFontProvider;
@@ -44,6 +45,7 @@ class UserPanelProvider extends PanelProvider
             ])
             // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
+                PegawaiRingkasanPermohonan::class,
                 Profile::class,
                 Kalender::class,
             ])
