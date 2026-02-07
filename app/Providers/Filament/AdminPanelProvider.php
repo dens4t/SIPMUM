@@ -3,13 +3,6 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Auth\CustomLogin;
-use Filament\Http\Middleware\Authenticate;
-use Filament\Http\Middleware\DisableBladeIconComponents;
-use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages;
-use App\Filament\Auth\Login;
-use App\Filament\Widgets\CalendarTimeWidget;
-use App\Filament\Widgets\CalendarWidget;
 use App\Filament\Widgets\DaftarUnit;
 use App\Filament\Widgets\JenjangPegawai;
 use App\Filament\Widgets\JumlahPegawai;
@@ -17,11 +10,14 @@ use App\Filament\Widgets\Kalender;
 use App\Filament\Widgets\Profile;
 use App\Http\Middleware\RedirectIfPegawai;
 use Filament\FontProviders\GoogleFontProvider;
+use Filament\Http\Middleware\Authenticate;
+use Filament\Http\Middleware\DisableBladeIconComponents;
+use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -29,7 +25,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -75,7 +70,7 @@ class AdminPanelProvider extends PanelProvider
             ->maxContentWidth(MaxWidth::Full)
             ->unsavedChangesAlerts()
             ->brandLogo(asset('storage/logo.png'))
-            ->brandLogoHeight('3rem')
+            ->brandLogoHeight('2rem')
             ->brandName('SI P-MUM')
             // ->breadcrumbs(true)
             // ->topbar(false)

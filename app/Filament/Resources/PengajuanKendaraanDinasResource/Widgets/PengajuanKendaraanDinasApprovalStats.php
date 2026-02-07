@@ -3,10 +3,12 @@
 namespace App\Filament\Resources\PengajuanKendaraanDinasResource\Widgets;
 
 use App\Models\Approver;
+use App\Models\Pegawai;
 use App\Models\PengajuanApproval;
 use App\Models\PengajuanKendaraanDinas;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Database\Eloquent\Builder;
 
 class PengajuanKendaraanDinasApprovalStats extends BaseWidget
 {
@@ -24,9 +26,7 @@ class PengajuanKendaraanDinasApprovalStats extends BaseWidget
         $isAdmin = (bool) $user?->is_admin;
 
         $queryPengajuan = PengajuanKendaraanDinas::query();
-        if (! $isAdmin && $idPegawai) {
-            $queryPengajuan->where('id_pegawai', $idPegawai);
-        }
+        $this->applyDataVisibilityScope($queryPengajuan, $isAdmin, $idPegawai);
 
         $total = (clone $queryPengajuan)->count();
 
@@ -56,5 +56,72 @@ class PengajuanKendaraanDinasApprovalStats extends BaseWidget
             Stat::make('Ditolak', (string) $rejected)->color('danger'),
             Stat::make('Perlu Persetujuan Saya', (string) $needMyApproval)->color('info'),
         ];
+    }
+
+    protected function applyDataVisibilityScope(Builder $queryPengajuan, bool $isAdmin, ?int $idPegawai): void
+    {
+        if ($isAdmin) {
+            return;
+        }
+
+        if (! $idPegawai) {
+            $queryPengajuan->whereRaw('1 = 0');
+
+            return;
+        }
+
+        $activeCategoryNames = $this->getActiveApproverCategoryNames($idPegawai);
+
+        if (in_array('Manager', $activeCategoryNames, true)) {
+            return;
+        }
+
+        if ($this->hasTeamLeaderScope($activeCategoryNames)) {
+            $subordinateIds = Pegawai::query()
+                ->where('id_atasan', $idPegawai)
+                ->pluck('id');
+
+            if ($subordinateIds->isEmpty()) {
+                $queryPengajuan->whereRaw('1 = 0');
+
+                return;
+            }
+
+            $queryPengajuan->whereIn('id_pegawai', $subordinateIds);
+
+            return;
+        }
+
+        $queryPengajuan->where('id_pegawai', $idPegawai);
+    }
+
+    protected function getActiveApproverCategoryNames(int $idPegawai): array
+    {
+        return Approver::query()
+            ->where('id_pegawai', $idPegawai)
+            ->activeNow()
+            ->with('category:id,nama_kategori')
+            ->get()
+            ->pluck('category.nama_kategori')
+            ->filter()
+            ->values()
+            ->all();
+    }
+
+    protected function hasTeamLeaderScope(array $activeCategoryNames): bool
+    {
+        foreach ($activeCategoryNames as $categoryName) {
+            if ($categoryName === 'Manager') {
+                continue;
+            }
+
+            if (str_starts_with($categoryName, 'Manager ')
+                || str_starts_with($categoryName, 'Team Leader')
+                || str_starts_with($categoryName, 'TL ')) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

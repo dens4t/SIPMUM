@@ -2,11 +2,10 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Auth\CustomLogin;
 use App\Filament\Pages\Tentang;
+use App\Filament\Resources\ApprovalLogResource;
 use App\Filament\Resources\ApproverCategoryResource;
 use App\Filament\Resources\ApproverResource;
-use App\Filament\Resources\ApprovalLogResource;
 use App\Filament\Resources\BagianResource;
 use App\Filament\Resources\DriverResource;
 use App\Filament\Resources\JabatanResource;
@@ -34,7 +33,6 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\MaxWidth;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -102,7 +100,7 @@ class UserPanelProvider extends PanelProvider
             ->maxContentWidth(MaxWidth::Full)
             ->unsavedChangesAlerts()
             ->brandLogo(asset('storage/logo.png'))
-            ->brandLogoHeight('3rem')
+            ->brandLogoHeight('2rem')
             ->brandName('SI P-MUM')
             // ->breadcrumbs(true)
             // ->topbar(false)
