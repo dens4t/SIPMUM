@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PengajuanKendaraanDinas extends Model
 {
@@ -14,24 +14,24 @@ class PengajuanKendaraanDinas extends Model
 
     use HasFactory;
 
-    public function pegawai()
+    public function pegawai(): BelongsTo
     {
-        return $this->hasOne(Pegawai::class, 'id', 'id_pegawai');
+        return $this->belongsTo(Pegawai::class, 'id_pegawai');
     }
 
-    public function driver()
+    public function driver(): BelongsTo
     {
-        return $this->hasOne(Driver::class, 'id', 'id_driver');
+        return $this->belongsTo(Driver::class, 'id_driver');
     }
 
-    public function kendaraan()
+    public function kendaraan(): BelongsTo
     {
-        return $this->hasOne(Kendaraan::class, 'id', 'id_kendaraan');
+        return $this->belongsTo(Kendaraan::class, 'id_kendaraan');
     }
 
-    public function approval(): HasOne
+    public function approval(): BelongsTo
     {
-        return $this->hasOne(PengajuanApproval::class, 'pengajuan_id', 'id')
+        return $this->belongsTo(PengajuanApproval::class, 'id', 'pengajuan_id')
             ->where('jenis_pengajuan', 'pengajuan_kendaraan_dinas');
     }
 }

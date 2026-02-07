@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class NomorSurat extends Model
 {
@@ -14,16 +14,14 @@ class NomorSurat extends Model
 
     use HasFactory;
 
-    // protected $appends = ['nama_lengkap'];
-
-    public function pegawai()
+    public function pegawai(): BelongsTo
     {
-        return $this->hasOne(Pegawai::class, 'id', 'id_pegawai');
+        return $this->belongsTo(Pegawai::class, 'id_pegawai');
     }
 
-    public function approval(): HasOne
+    public function approval(): BelongsTo
     {
-        return $this->hasOne(PengajuanApproval::class, 'pengajuan_id', 'id')
+        return $this->belongsTo(PengajuanApproval::class, 'id', 'pengajuan_id')
             ->where('jenis_pengajuan', 'nomor_surat');
     }
 }

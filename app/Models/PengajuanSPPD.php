@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PengajuanSPPD extends Model
 {
@@ -18,24 +18,24 @@ class PengajuanSPPD extends Model
 
     use HasFactory;
 
-    public function pegawai()
+    public function pegawai(): BelongsTo
     {
-        return $this->hasOne(Pegawai::class, 'id', 'id_pegawai');
+        return $this->belongsTo(Pegawai::class, 'id_pegawai');
     }
 
-    public function kota_asal()
+    public function kota_asal(): BelongsTo
     {
-        return $this->hasOne(Kota::class, 'id', 'id_kota_asal');
+        return $this->belongsTo(Kota::class, 'id_kota_asal');
     }
 
-    public function kota_tujuan()
+    public function kota_tujuan(): BelongsTo
     {
-        return $this->hasOne(Kota::class, 'id', 'id_kota_tujuan');
+        return $this->belongsTo(Kota::class, 'id_kota_tujuan');
     }
 
-    public function approval(): HasOne
+    public function approval(): BelongsTo
     {
-        return $this->hasOne(PengajuanApproval::class, 'pengajuan_id', 'id')
+        return $this->belongsTo(PengajuanApproval::class, 'id', 'pengajuan_id')
             ->where('jenis_pengajuan', 'pengajuan_sppd');
     }
 }
