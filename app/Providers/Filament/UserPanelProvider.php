@@ -50,6 +50,7 @@ class UserPanelProvider extends PanelProvider
         return $panel
             ->id('user')
             ->path('pegawai')
+            ->darkMode(false)
             ->colors([
                 'primary' => Color::Blue,
             ])
