@@ -3,9 +3,24 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Auth\CustomLogin;
-use App\Filament\Widgets\DaftarUnit;
-use App\Filament\Widgets\JenjangPegawai;
-use App\Filament\Widgets\JumlahPegawai;
+use App\Filament\Pages\Tentang;
+use App\Filament\Resources\ApproverCategoryResource;
+use App\Filament\Resources\ApproverResource;
+use App\Filament\Resources\ApprovalLogResource;
+use App\Filament\Resources\BagianResource;
+use App\Filament\Resources\DriverResource;
+use App\Filament\Resources\JabatanResource;
+use App\Filament\Resources\KendaraanResource;
+use App\Filament\Resources\KotaResource;
+use App\Filament\Resources\NomorSuratResource;
+use App\Filament\Resources\PegawaiResource;
+use App\Filament\Resources\PendidikanTerakhirResource;
+use App\Filament\Resources\PengajuanKegiatanResource;
+use App\Filament\Resources\PengajuanKendaraanDinasResource;
+use App\Filament\Resources\PengajuanRapatKonsumsiResource;
+use App\Filament\Resources\PengajuanSPPDResource;
+use App\Filament\Resources\UnitResource;
+use App\Filament\Widgets\ApproverStatusWidget;
 use App\Filament\Widgets\Kalender;
 use App\Filament\Widgets\PegawaiRingkasanPermohonan;
 use App\Filament\Widgets\Profile;
@@ -38,16 +53,33 @@ class UserPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Blue,
             ])
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
+                Tentang::class,
             ])
-            // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->resources([
+                NomorSuratResource::class,
+                PengajuanKegiatanResource::class,
+                PengajuanKendaraanDinasResource::class,
+                PengajuanRapatKonsumsiResource::class,
+                PengajuanSPPDResource::class,
+                ApproverResource::class,
+                ApproverCategoryResource::class,
+                ApprovalLogResource::class,
+                BagianResource::class,
+                DriverResource::class,
+                JabatanResource::class,
+                KendaraanResource::class,
+                KotaResource::class,
+                PegawaiResource::class,
+                PendidikanTerakhirResource::class,
+                UnitResource::class,
+            ])
             ->widgets([
-                PegawaiRingkasanPermohonan::class,
                 Profile::class,
                 Kalender::class,
+                PegawaiRingkasanPermohonan::class,
+                ApproverStatusWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

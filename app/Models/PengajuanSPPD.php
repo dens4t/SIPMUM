@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PengajuanSPPD extends Model
 {
     protected $table = 'pengajuan_sppd';
+
     protected $guarded = [];
+
     protected $casts = [
-        'surat_undangan_penugasan' => 'array'
+        'surat_undangan_penugasan' => 'array',
     ];
 
     use HasFactory;
@@ -19,6 +22,7 @@ class PengajuanSPPD extends Model
     {
         return $this->hasOne(Pegawai::class, 'id', 'id_pegawai');
     }
+
     public function kota_asal()
     {
         return $this->hasOne(Kota::class, 'id', 'id_kota_asal');
@@ -28,5 +32,10 @@ class PengajuanSPPD extends Model
     {
         return $this->hasOne(Kota::class, 'id', 'id_kota_tujuan');
     }
-    use HasFactory;
+
+    public function approval(): HasOne
+    {
+        return $this->hasOne(PengajuanApproval::class, 'pengajuan_id', 'id')
+            ->where('jenis_pengajuan', 'pengajuan_sppd');
+    }
 }

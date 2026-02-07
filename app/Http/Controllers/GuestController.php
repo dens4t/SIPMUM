@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\GuestPage;
+use App\Models\Kegiatan;
 use App\Models\NomorSurat;
 use App\Models\PengajuanKendaraanDinas;
 use App\Models\PengajuanRapatKonsumsi;
@@ -80,6 +81,14 @@ class GuestController extends Controller
     {
         return view('guest.permohonan');
     }
+
+    public function datatable_kegiatans(Request $request)
+    {
+        $query = Kegiatan::query();
+        return DataTables::of($query)
+            ->make(true);
+    }
+
     public function kontak()
     {
         return view('guest.kontak');

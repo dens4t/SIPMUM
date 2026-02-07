@@ -1,0 +1,163 @@
+.lytzd-logo{
+    width: 175px;
+    filter: drop-shadow(0px 0px 1px #fff);
+
+
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* remove the gap so it doesn't close */
+
+}
+.lytzd-logo span{
+    color: black;
+}
+.jadwal-img{
+    width: 100%;
+}
+
+.me-2{
+    border: none;
+    width: 150px;
+    height: 30px;
+    outline: none;
+}
+
+.myBtn{
+    border: none;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    background-color: orange;
+}
+.myBtna{
+    border: none;
+    width: 60px;
+    height: 30px;
+    outline: none;
+    background-color: orange;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 5px;
+    font-size: 10px;
+    transition: .2s;
+}
+
+.myBtna:hover{
+    background-color: white;
+    color: orange;
+}
+.navbar{
+    background-color: #fff;
+    background-image:url(../assets/img/naruto20.png);
+    background-size: 1500px 100px;
+    background-position: -100px center;
+    background-repeat: no-repeat;
+}
+
+@media (max-width: 576px) {
+    .lytzd-logo{
+        width: 125px;
+    }
+    .medsos{
+        display: none;
+    }
+    .navbar{
+        background-image: none;
+    }
+    .top-h{
+        display: none;
+    }
+
+    .navbar{
+        transition: 2s;
+    }
+    .footer-2{
+        padding: 20px;
+    }
+}
+
+.medsos{
+    position: absolute;
+    z-index:999999;
+    top: 300px;
+}
+
+.ms{
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+.ms-ig {
+    background-image: url(../assets/img/ig.png);
+    background-size: cover;
+}
+.ms-tiktok {
+    background-image: url(../assets/img/tiktok.png);
+    background-size: cover;
+}
+.ms-yt {
+    background-image: url(../assets/img/yt.png);
+    background-size: cover;
+}
+.ms-fb {
+    background-image: url(../assets/img/fb.png);
+    background-size: cover;
+}
+
+@media (min-width: 200px) {
+    .animate {
+      animation-duration: 0.3s;
+      -webkit-animation-duration: 0.3s;
+      animation-fill-mode: both;
+      -webkit-animation-fill-mode: both;
+    }
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0rem);
+      opacity: 1;
+    }
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+  }
+
+  @-webkit-keyframes slideIn {
+    0% {
+      -webkit-transform: transform;
+      -webkit-opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+      -webkit-opacity: 1;
+    }
+    0% {
+      -webkit-transform: translateY(1rem);
+      -webkit-opacity: 0;
+    }
+  }
+
+  .slideIn {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+  }
+
+  .linkstylepers{
+    text-decoration: none;
+    color:  black;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+
+  .linkstylepers-1{
+    text-decoration: none;
+    color:  #fff;
+    font-family:Arial, Helvetica, sans-serif;
+  }

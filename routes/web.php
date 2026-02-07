@@ -15,6 +15,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/filament-clear', function() {
+    $exitCode = Artisan::call('filament:clear');
+    // return what you want
+});
+Route::get('/filament-assets', function() {
+    $exitCode = Artisan::call('filament:assets');
+    // return what you want
+});
+
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('optimize:clear');
+    // return what you want
+});
+
 Route::get('/ngelink', function () {
     Artisan::call('storage:link');
 });
@@ -22,10 +36,6 @@ Route::get('/', [GuestController::class, 'index']);
 
 Route::get('/permohonan', [GuestController::class, 'permohonan']);
 Route::get('/berita', [GuestController::class, 'berita']);
-Route::get('/permohonan/nomor-surat', [GuestController::class, 'datatable_nomor_surat']);
-Route::get('/permohonan/pengajuan-sppd', [GuestController::class, 'datatable_pengajuan_sppd']);
-Route::get('/permohonan/pengajuan-kendaraan-dinas', [GuestController::class, 'datatable_pengajuan_kendaraan_dinas']);
-Route::get('/permohonan/pengajuan-rapat-konsumsi', [GuestController::class, 'datatable_pengajuan_rapat_konsumsi']);
 
 Route::get('/tentang-kami', [GuestController::class, 'tentang_kami']);
 Route::get('/struktur-organisasi', [GuestController::class, 'struktur_organisasi']);
