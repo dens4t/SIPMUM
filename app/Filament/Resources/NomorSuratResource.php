@@ -28,12 +28,21 @@ class NomorSuratResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
-    // protected static function getNavigationBadgeColor(): ?string
-    // {
-    //     return static::getModel()::count() > 10 ? 'warning' : 'primary';
-    // }
-
     protected static ?string $pluralModelLabel = 'Nomor Surat';
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::whereHas('approval', function ($query) {
+            $query->where('status', 'pending');
+        })
+            ->where('id_pegawai', auth()->user()->id_pegawai)
+            ->count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
 
     public static function canViewAny(): bool
     {

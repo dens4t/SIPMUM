@@ -2,6 +2,14 @@
 
 @config 'tailwind.config.js';
 
+/* Alpine.js x-cloak directive - hides elements until Alpine is initialized */
+[x-cloak],
+[x-cloak=""],
+[x-cloak="x-cloak"],
+[x-cloak="1"] {
+    display: none !important;
+}
+
 /* Sidebar navigation background styling */
 .fi-sidebar-nav {
     @apply bg-gradient-to-b from-blue-gradient-start to-blue-gradient-end;

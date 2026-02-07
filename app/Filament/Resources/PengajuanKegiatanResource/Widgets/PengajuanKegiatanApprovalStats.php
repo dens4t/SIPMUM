@@ -50,11 +50,16 @@ class PengajuanKegiatanApprovalStats extends BaseWidget
             : 0;
 
         return [
-            Stat::make('Total Pengajuan', (string) $total)->color('primary'),
-            Stat::make('Menunggu', (string) $pending)->color('warning'),
-            Stat::make('Disetujui', (string) $approved)->color('success'),
-            Stat::make('Ditolak', (string) $rejected)->color('danger'),
-            Stat::make('Perlu Persetujuan Saya', (string) $needMyApproval)->color('info'),
+            Stat::make('Total Pengajuan', (string) $total)
+                ->color('primary'),
+            Stat::make('Menunggu', (string) $pending)
+                ->color('warning'),
+            Stat::make('Disetujui', (string) $approved)
+                ->color('success'),
+            Stat::make('Ditolak', (string) $rejected)
+                ->color('danger'),
+            Stat::make('Perlu Persetujuan', (string) $needMyApproval)
+                ->color('info'),
         ];
     }
 

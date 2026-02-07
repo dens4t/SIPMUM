@@ -28,6 +28,20 @@ class PengajuanSPPDResource extends Resource
 
     protected static ?string $pluralModelLabel = 'SPPD';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::whereHas('approval', function ($query) {
+            $query->where('status', 'pending');
+        })
+            ->where('id_pegawai', auth()->user()->pegawai->id)
+            ->count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
+
     public static function form(Form $form): Form
     {
         return $form

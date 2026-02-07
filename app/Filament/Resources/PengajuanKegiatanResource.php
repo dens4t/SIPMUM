@@ -30,6 +30,20 @@ class PengajuanKegiatanResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Kegiatan';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::whereHas('approval', function ($query) {
+            $query->where('status', 'pending');
+        })
+            ->where('id_pegawai', auth()->user()->id_pegawai)
+            ->count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
+
     public static function canViewAny(): bool
     {
         return auth()->check();
