@@ -32,10 +32,22 @@ class PengajuanKegiatanResource extends Resource
 
     public static function getNavigationBadge(): ?string
     {
+        $user = auth()->user();
+
+        if ($user->is_admin) {
+            return null;
+        }
+
+        $idPegawai = $user->id_pegawai;
+
+        if (! $idPegawai) {
+            return null;
+        }
+
         return static::getModel()::whereHas('approval', function ($query) {
             $query->where('status', 'pending');
         })
-            ->where('id_pegawai', auth()->user()->id_pegawai)
+            ->where('id_pegawai', $idPegawai)
             ->count();
     }
 
