@@ -89,7 +89,7 @@ class PegawaiResource extends Resource
                                 Forms\Components\TextInput::make('keterangan_pegawai')->label('Keterangan Pegawai'),
                                 Forms\Components\Select::make('id_jabatan')->label('Jabatan')->relationship('jabatan', 'nama')->searchable()->preload()->required(),
                                 Forms\Components\Select::make('id_bagian')->label('Bagian')->relationship('bagian', 'nama_lengkap')->searchable()->preload()->required(),
-                                Forms\Components\Select::make('id_unit')->label('Unit')->relationship('unit', 'nama_lengkap')->searchable()->preload()->required(),
+                                Forms\Components\Select::make('id_unit')->label('Unit')->relationship('unit', 'nama')->searchable()->preload()->required(),
                                 Forms\Components\Select::make('id_pendidikan_terakhir')->label('Pendidikan Terakhir')->relationship('pendidikan_terakhir', 'jenjang')->searchable()->preload()->required(),
                             ]),
 

@@ -13,14 +13,16 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class ApproverResource extends Resource
 {
     protected static ?string $model = Approver::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+
     protected static ?string $navigationGroup = 'Approval';
+
     protected static ?int $navigationSort = 2;
 
     public static function canViewAny(): bool
@@ -34,7 +36,7 @@ class ApproverResource extends Resource
             ->schema([
                 Forms\Components\Select::make('id_pegawai')
                     ->label('Pegawai')
-                    ->options(fn() => Pegawai::query()->pluck('nama', 'id'))
+                    ->options(fn () => Pegawai::query()->pluck('nama', 'id'))
                     ->searchable()
                     ->required()
                     ->reactive()
@@ -48,12 +50,12 @@ class ApproverResource extends Resource
                     }),
                 Forms\Components\Select::make('id_approver_category')
                     ->label('Kategori Approver')
-                    ->options(fn() => ApproverCategory::active()->ordered()->pluck('nama_kategori', 'id'))
+                    ->options(fn () => ApproverCategory::active()->ordered()->pluck('nama_kategori', 'id'))
                     ->searchable()
                     ->required(),
                 Forms\Components\Select::make('id_atasan')
                     ->label('Atasan Langsung')
-                    ->options(fn() => Pegawai::query()->pluck('nama', 'id'))
+                    ->options(fn () => Pegawai::query()->pluck('nama', 'id'))
                     ->searchable()
                     ->disabled()
                     ->dehydrated(false)
@@ -85,15 +87,15 @@ class ApproverResource extends Resource
                         'success' => true,
                         'danger' => false,
                     ])
-                    ->formatStateUsing(fn($state) => $state ? 'Aktif' : 'Tidak Aktif'),
+                    ->formatStateUsing(fn ($state) => $state ? 'Aktif' : 'Tidak Aktif'),
                 Tables\Columns\TextColumn::make('tanggal_mulai')->label('Mulai')->date()->sortable(),
                 Tables\Columns\TextColumn::make('tanggal_selesai')->label('Selesai')->date()->sortable(),
             ])
-            ->modifyQueryUsing(fn(Builder $query) => $query->with(['pegawai.bawahan', 'category', 'atasan']))
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['pegawai.bawahan', 'category', 'atasan']))
             ->filters([
                 Tables\Filters\SelectFilter::make('id_approver_category')
                     ->label('Kategori')
-                    ->options(fn() => ApproverCategory::active()->pluck('nama_kategori', 'id')),
+                    ->options(fn () => ApproverCategory::active()->pluck('nama_kategori', 'id')),
                 Tables\Filters\SelectFilter::make('is_active')
                     ->label('Status')
                     ->options([
@@ -105,6 +107,66 @@ class ApproverResource extends Resource
                 Tables\Actions\ViewAction::make()->closeModalByClickingAway(false),
                 Tables\Actions\EditAction::make()->closeModalByClickingAway(false),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('lihatBawahan')
+                    ->label('Lihat Bawahan')
+                    ->icon('heroicon-o-eye')
+                    ->color('info')
+                    ->modalHeading(fn (Approver $record) => "Daftar Bawahan: {$record->pegawai?->nama}")
+                    ->modalContent(fn (Approver $record) => view(
+                        'filament.resources.approver-resource.bawahan-list',
+                        ['bawahan' => $record->pegawai?->bawahan ?? collect()]
+                    ))
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Tutup'),
+                Tables\Actions\Action::make('kelolaBawahan')
+                    ->label('Kelola Bawahan')
+                    ->icon('heroicon-o-user-group')
+                    ->color('warning')
+                    ->slideOver()
+                    ->fillForm(function (Approver $record) {
+                        return [
+                            'bawahan_ids' => $record->pegawai?->bawahan?->pluck('id')->toArray() ?? [],
+                        ];
+                    })
+                    ->form([
+                        Forms\Components\Section::make('Informasi')
+                            ->description('Pilih pegawai yang akan menjadi bawahan dari approver ini.')
+                            ->schema([
+                                Forms\Components\Select::make('bawahan_ids')
+                                    ->label('Pilih Bawahan')
+                                    ->multiple()
+                                    ->options(function (Approver $record) {
+                                        return Pegawai::query()
+                                            ->where('id', '!=', $record->id_pegawai)
+                                            ->pluck('nama', 'id');
+                                    })
+                                    ->searchable()
+                                    ->preload()
+                                    ->helperText('Pegawai yang dipilih akan diatur sebagai bawahan dari approver ini.'),
+                            ]),
+                    ])
+                    ->action(function (array $data, Approver $record) {
+                        $idPegawaiApprover = $record->id_pegawai;
+                        $selectedIds = $data['bawahan_ids'] ?? [];
+
+                        DB::transaction(function () use ($idPegawaiApprover, $selectedIds) {
+                            // Reset bawahan yang tidak dipilih lagi
+                            Pegawai::where('id_atasan', $idPegawaiApprover)
+                                ->whereNotIn('id', $selectedIds)
+                                ->update(['id_atasan' => null]);
+
+                            // Update bawahan yang dipilih
+                            if (! empty($selectedIds)) {
+                                Pegawai::whereIn('id', $selectedIds)
+                                    ->update(['id_atasan' => $idPegawaiApprover]);
+                            }
+                        });
+
+                        Notification::make()
+                            ->title('Berhasil mengupdate bawahan')
+                            ->success()
+                            ->send();
+                    }),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
